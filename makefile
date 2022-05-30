@@ -5,18 +5,16 @@
 # @version 0.1
 
 arch:
-	sudo pacman -S --noconfirm python-pip
-	python3 -m pip install --user pipx
-	python3 -m pipx ensurepath
-	$(HOME)/.local/bin/pipx install pyinfra
+	zsh
+	sudo pacman -S --noconfirm python-pip fd ripgrep cmake libvterm starship zsh-syntax-highlighting
 
-	mkdir $(HOME)/.config
+	mkdir $(HOME)/{.config,Downloads,Documents,Pictures}
 
-	ln -s $(DIRSTACK)/doom $(HOME)/.config/doom
-	ln -s $(DIRSTACK)/zshrc $(HOME)/.zshrc
-	ln -s $(DIRSTACK)/starship.toml $(HOME)/.config/starship.toml
+	ln -s $(HOME)/.dotfiles/doom $(HOME)/.config/doom
+	ln -s $(HOME)/.dotfiles/zshrc $(HOME)/.zshrc
+	ln -s $(HOME)/.dotfiles/starship.toml $(HOME)/.config/starship.toml
 	mkdir $(HOME)/.config/stumpwm
-	ln -s $(DIRSTACK)/stump_config.lisp $(HOME)/.config/stumpwm/config
+	ln -s $(HOME)/.dotfiles/stump_config.lisp $(HOME)/.config/stumpwm/config
 
 
 	git clone --depth 1 https://github.com/doomemacs/doomemacs $(HOME)/.config/emacs
@@ -25,8 +23,10 @@ arch:
 	curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | zsh
 	source $(HOME)/.zshrc
 
-	zsh pyinfra @local $(DIRSTACK)/deploy/arch.py
 	chsh -s /bin/zsh
+
+	git clone https://github.com/fosskers/aura.git $(HOME)/Downloads/aura
+	stack install -- $(HOME)/Downloads/aura
 
 
 fedora:
