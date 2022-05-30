@@ -2,7 +2,7 @@
 (in-package :stumpwm)
 
 (when stumpwm:*initializing*
-  (stumpwm:run-shell-command "~/.dropbox-dist/dropboxd")
+;;  (stumpwm:run-shell-command "~/.dropbox-dist/dropboxd")
   (stumpwm:run-shell-command "picom")
   (stumpwm:run-shell-command "nitrogen --restore"))
 
@@ -102,8 +102,8 @@
 (setf swm-gaps:*inner-gaps-size* 5)
 (swm-gaps:toggle-gaps-on)
 
-(stumpwm:set-font (make-instance 'xft:font :family "Fira Code Retina" :subfamily "Regular" :size 12))
-(stumpwm:toggle-mode-line (stumpwm:current-screen) (stumpwm:current-head))
+;; (stumpwm:set-font (make-instance 'xft:font :family "Fira Code Retina" :subfamily "Regular" :size 12))
+;; (stumpwm:toggle-mode-line (stumpwm:current-screen) (stumpwm:current-head))
 
 (setf stumpwm:*time-modeline-string* "%I:%m %p | %a %b %e, %Y"
       wifi:*wifi-modeline-fmt* "%e"

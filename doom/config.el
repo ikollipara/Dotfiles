@@ -9,6 +9,10 @@
 (setq user-full-name "Ian Kollipara"
       user-mail-address "ian.kollipara@cune.org")
 
+(setq doom-font (font-spec :family "Fira Code Retina" :size 20)
+      doom-variable-pitch-font (font-spec :family "Comfortaa" :size 20)
+      doom-big-font (font-spec :family "Comfortaa" :size 30))
+
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
 ;; - `doom-font' -- the primary font to use
@@ -93,3 +97,11 @@
   (setq +mu4e-gmail-accounts '(("ian.kollipara@cune.org" . "/cune"))
         mu4e-index-cleanup t
         mu4e-index-lazy-check t))
+
+(load (expand-file-name "~/.roswell/helper.el"))
+
+(setq! bibtex-completion-bibliography '("/home/ikollipara/Dropbox/Zettlekasten/My Library.bib")
+        citar-bibliography '("/home/ikollipara/Dropbox/Zettlekasten/My Library.bib"))
+
+(setq reftex-default-bibliograpy "/home/ikollipara/Dropbox/Zettlekasten/My Library.bib")
+
