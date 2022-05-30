@@ -12,20 +12,20 @@ arch:
 
 	mkdir $(HOME)/.config
 
-	ln -s doom $(HOME)/.config/doom
-	ln -s zshrc $(HOME)/.zshrc
-	ln -s starship.toml $(HOME)/.config/starship.toml
+	ln -s $(DIRSTACK)/doom $(HOME)/.config/doom
+	ln -s $(DIRSTACK)/zshrc $(HOME)/.zshrc
+	ln -s $(DIRSTACK)/starship.toml $(HOME)/.config/starship.toml
 	mkdir $(HOME)/.config/stumpwm
-	ln -s stump_config.lisp $(HOME)/.config/stumpwm/config
+	ln -s $(DIRSTACK)/stump_config.lisp $(HOME)/.config/stumpwm/config
 
 
-	zsh git clone --depth 1 https://github.com/doomemacs/doomemacs $(HOME)/.config/emacs
+	git clone --depth 1 https://github.com/doomemacs/doomemacs $(HOME)/.config/emacs
 	$(HOME)/.config/emacs/bin/doom install
 
 	curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | zsh
-	source .zshrc
+	source $(HOME)/.zshrc
 
-	zsh pyinfra @local deploys/arch.py
+	zsh pyinfra @local $(DIRSTACK)/deploy/arch.py
 	chsh -s /bin/zsh
 
 
@@ -41,6 +41,6 @@ fedora:
 	mkdir $HOME/.config/stumpwm
 	ln -s stump_config.lisp $HOME/.config/stumpwm/config
 
-	pyinfra @local deploys/fedora.py
+	pyinfra @local deploy/fedora.py
 
 # end
