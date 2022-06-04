@@ -1,0 +1,371 @@
+#+title: Stump Config
+#+author: Ian Kollipara
+#+date: May 31, 2022
+#+property: header-args :tangle config.lisp
+
+* Introduction
+This is my *StumpWM* Config. Much of it is hand-crafted, although some is pulled from [[https://github.com/Gavinok/stump-conf/blob/main/config][Gavin Freeborn's Config]]. The theme of the system is [[https://github.com/catppuccin][Catppuccin]]. I use Emacs for a majority of tasks, but not all of them. Emacs is used for the terminal emulator via =vterm=, as the primary editor, and as my email client via =mu4e=. This config facilitates much of that for me.
+
+* Initial Setup
+For the config to work, a few things have to be setup before I continue.
+#+begin_src lisp
+(in-package :stumpwm)
+#+end_src
+
+** Imports
+#+begin_src lisp
+(ql:quickload :slynk)
+(ql:quickload :clx-truetype)
+(ql:quickload :uiop)
+(ql:quickload :str)
+(ql:quickload :arrows)
+(load-module "swm-gaps")
+(load-module "ttf-fonts")
+#+end_src
+
+** Misc
+I really don't like the "X" mouse cursor, so I change it to be consistent.
+#+begin_src lisp
+(stumpwm:run-shell-command "xsetroot -cursor_name left_ptr")
+#+end_src
+
+Another issue is font rendering, I use [[https://www.programmingfonts.org/#firacode][Fira Code]] for my font, which is modified as a Nerd Font, so I have icons I can use. But to do this, I have to update the cache fonts.
+#+begin_src lisp
+(xft:cache-fonts)
+(clx-truetype:cache-fonts)
+#+end_src
+
+* Startup Applications
+Stump provides a good mechanism for running autostart applications. This comes in the form of the variable ~*initializing*~. I autostart Dropbox, Emacs Daemon, Nitrogren, Picom, ... However, in the case of dropbox I don't start it unless I'm using Arch. For Fedora I install the dropbox package from their website.
+#+begin_src lisp
+(when *initializing*
+  (when (eq (run-shell-command "uname -n" t) "fedora")
+   (run-shell-command "~/.dropbox-dist/dropboxd"))
+  (run-shell-command "picom")
+  (run-shell-command "nitrogen --restore")
+  (run-shell-command "emacs --daemon"))
+#+end_src
+
+* Keybinds
+For my keybinds I use a helper function that just wraps the normal StumpWM keybind behavior. Its purely for conciseness.
+#+begin_src lisp
+(defun ik/keybind (map key cmd)
+  (define-key map (kbd key) cmd))
+#+end_src
+
+** Prefix Key
+Since I'm a big fan of Doom Emacs, I use =s-space= for my prefix. This is really close to doom's =space= prefix, and thus is less context switching for me.
+#+begin_src lisp
+(set-prefix-key
+ (kbd "s-space"))
+#+end_src
+
+** Window Management
+For moving, focusing, resizing, and splitting windows I use vim-like keybinds. All of these are bound at the top level.
+#+begin_src lisp
+(ik/keybind *top-map*  "s-h" "move-focus left")
+(ik/keybind *top-map*  "s-l" "move-focus right")
+(ik/keybind *top-map*  "s-k" "move-focus up")
+(ik/keybind *top-map*  "s-j" "move-focus down")
+
+(ik/keybind *top-map*  "s-M-h" "move-window left")
+(ik/keybind *top-map*  "s-M-l" "move-window right")
+(ik/keybind *top-map*  "s-M-j" "move-window down")
+(ik/keybind *top-map*  "s-M-k" "move-window up")
+
+(ik/keybind *root-map* "R" "iresize")
+(ik/keybind *root-map* "r" "remove")
+(ik/keybind *root-map* "s" "vsplit-and-focus")
+(ik/keybind *root-map* "S" "hsplit-and-focus")
+#+end_src
+
+** Group Management
+I also use pretty normal keybinds for group management. My previous window manager was Qtile, so I incorporated many features from that that I like. In particular this is the use of Super+$n$ for choosing a group, and s-, s-. for moving between groups next to each other.
+#+begin_src lisp
+(ik/keybind *top-map* "s-1" "gselect 1")
+(ik/keybind *top-map* "s-2" "gselect 2")
+(ik/keybind *top-map* "s-3" "gselect 3")
+(ik/keybind *top-map* "s-4" "gselect 4")
+(ik/keybind *top-map* "s-5" "gselect 5")
+(ik/keybind *top-map* "s-6" "gselect 6")
+(ik/keybind *top-map* "s-7" "gselect 7")
+(ik/keybind *top-map* "s-8" "gselect 8")
+(ik/keybind *top-map* "s-9" "gselect 9")
+
+(ik/keybind *top-map* "s-." "gnext")
+(ik/keybind *top-map* "s-," "gprev")
+#+end_src
+
+** Applications
+Certain applications are nice to have bound to keys. Some examples are emacs, vterm, brave, etc.
+#+begin_src lisp
+(ik/keybind *top-map* "s-w" "brave")
+(ik/keybind *top-map* "s-RET" "term")
+(ik/keybind *root-map* "e" "exec emacsclient -c -a 'emacs'")
+(ik/keybind *root-map* "C-e" "exec emacsclient -c -a 'emacs'")
+#+end_src
+
+* Groups
+For my groups I have 9, but they are more or less general purpose. Some have a specific name, but they're really all just static workspaces.
+#+begin_src lisp
+
+(defvar *workspaces* '("Home"
+                       "Web"
+                       "Emacs"
+                       "Office"
+                       "Mail"
+                       "Read"
+                       "Note"
+                       "Ref"))
+
+(grename (first *workspaces*))
+(loop for w in (rest *workspaces*)
+      do (gnewbg w))
+#+end_src
+
+* Mode-line
+For my mode-line I have a few extra modules that I add. These are for battery, wifi, and volume. There are some contrib modules for these, but they aren't suited for what I want.
+
+** Wifi
+For wifi I'm using NetworkManager, so I have a really simple script that queries for the network name. It also handles displaying different icons based on connectivity.
+#+begin_src lisp
+(defun wifi-string ()
+    (str:remove-punctuation (run-shell-command "nmcli device | grep '[^dis]connected' | awk '{print $4}'" t)))
+(defun wifi ()
+    (if (equal (wifi-string) "")
+        "睊 Disconnected"
+        (str:concat "直 " (wifi-string))))
+#+end_src
+
+** Volume
+For volume I wanted to show icons for different levels, as well as the state of volume. This requires more than just one function.
+#+begin_src lisp
+(defparameter *vol-icon-alist* '(
+                                 (0 . "ﱝ")
+                                 (10 . "奄")
+                                 (50 . "奔")
+                                 (100 . "墳")))
+
+
+(defun vol-icon (vol-percent)
+  "Get the corresponding icon given the volume percent"
+  (cdr (assoc vol-percent *vol-icon-alist* :test #'<=)))
+
+(defun vol-on-p (vol-line)
+  "Predicate to tell if volume is on"
+  (arrows:->> vol-line
+              (str:split " ")
+              sixth
+              str:remove-punctuation
+              (equal "on")))
+
+(defun vol-percent-as-integer (vol-line)
+  "Parse the line and return the volume string"
+  (arrows:->> vol-line
+              (str:split " ")
+              fifth
+              str:remove-punctuation
+              parse-integer))
+
+(defun vol ()
+  "Create the Volume String"
+  (let* ((vol-line (str:remove-punctuation (run-shell-command "amixer sget 'Master' | awk '/Left:/ {print}'" t)))
+         (vol-level (vol-percent-as-integer vol-line)))
+    (if (vol-on-p vol-line)
+        (arrows:-> vol-level
+                    vol-icon
+                    (str:concat (format nil " ~d%" vol-level)))
+        (arrows:-> 0
+                   vol-icon
+                   (str:concat " Muted")))))
+
+#+end_src
+
+** Battery
+Battery isn't the hardest to figure out. I borrow quite a bit of this from [[https://github.com/solbloch/stumpwm-configs/blob/master/battery.lisp][solbloch's custom config]].
+#+begin_src lisp
+(defvar *battery-discharging-icon-alist* '((10 . "")
+                                           (20 . "")
+                                           (30 . "")
+                                           (40 . "")
+                                           (50 . "")
+                                           (60 . "")
+                                           (70 . "")
+                                           (80 . "")
+                                           (90 . "")
+                                           (100 . "")))
+
+(defvar *battery-charging-icon-alist* '((20 . "")
+                                        (30 . "")
+                                        (40 . "")
+                                        (60 . "")
+                                        (80 . "")
+                                        (90 . "")
+                                        (100 . "")))
+
+;; Modified from solbloch
+(defun battery ()
+  (first (remove-if-not #'(lambda (supply)
+                           (search "BAT" (namestring supply)))
+                       (uiop:subdirectories "/sys/class/power_supply/"))))
+
+;; Taken from solbach
+(defun battery-alist (battery)
+  (with-open-file (stream (str:concat (namestring battery) "uevent"))
+    (loop for line = (read-line stream nil)
+         while line
+         collect (let ((line-split (str:split #\= line)))
+                   (cons (car line-split) (cadr line-split))))))
+
+(defun battery-discharging-p (bat)
+  "Check if the battery is discharging or not"
+  (equal "Discharging" (cdr( assoc "POWER_SUPPLY_STATUS" bat :test #'string=))))
+
+(defun battery-state ()
+  "Get the Battery String"
+  (let* ((bat (battery-alist (battery)))
+         (percent (parse-integer (cdr (assoc "POWER_SUPPLY_CAPACITY" bat :test #'string=)))))
+    (if (battery-discharging-p bat)
+        (str:concat (cdr (assoc percent *battery-discharging-icon-alist* :test #'<=)) (format nil " ~d%" percent))
+        (str:concat (cdr (assoc percent *battery-charging-icon-alist* :test #'<=)) (format nil " ~d%" percent)))))
+#+end_src
+
+** Group Format Configuration
+For displaying groups I use a few custom formatting elements. These wrap the active group with brackets ([]).
+#+begin_src lisp
+(defun current-group-left-bracket (group)
+  "If current group, return left brack '['"
+  (if (eq group (current-group))
+      "["
+      ""))
+
+(defun current-group-right-bracket (group)
+  "If current group, return right brack ']'"
+  (if (eq group (current-group))
+      "]"
+      ""))
+
+(defun current-group-font-color-start (group)
+  (if (eq group (stumpwm:current-group))
+      "^(:fg \"#f5a97f\")"
+      ""))
+
+(defun current-group-font-color-end (group)
+  (if (eq group (stumpwm:current-group))
+      "^(:fg \"#cad3f5\")"
+      ""))
+
+(setf *group-formatters*
+      (append *group-formatters* '((#\[ current-group-left-bracket)
+                                   (#\] current-group-right-bracket)
+                                   (#\C current-group-color-start)
+                                   (#\c current-group-color-start))))
+
+(setf *group-format* "%[%C%t%c%]")
+#+end_src
+
+** Time and Date
+For time and date I use a pretty standard layout.
+#+begin_src lisp
+(setf *time-modeline-string* "^(:bg \"#a6da95\") %I:%M %p ^(:bg \"#ed8796	\")  %a %b %e, %Y")
+#+end_src
+
+** Full Mode-line Format
+Given all this configuration, here is the final mode-line setup.
+#+begin_src lisp
+(setf *mode-line-background-color* "#1e1e2e")
+(setf *screen-mode-line-format*
+      (list "^B^(:fg \"#cdd6f4\")%g"
+            "^>"
+            "^B%d | "
+            "^B"
+            '(:eval (vol))
+            " | "
+            "^B"
+            '(:eval (wifi))
+            " | "
+            "^B"
+            '(:eval (battery-state))))
+
+;; This is a little helper to remove highlighting of the current group.
+(setf *mode-line-highlight-template* "~A")
+#+end_src
+
+* Commands
+I use quite a few commands, some of which are designed to work for both Fedora and Arch Linux, as I use both systems quite a bit.
+#+begin_src lisp
+(defcommand brave () ()
+  "Launch Brave Browser"
+  (if (eq (str:remove-punctuation (run-shell-command "uname -n" t)) "fedora")
+      (run-shell-command "brave-browser")
+      (run-shell-command "brave")))
+
+(defcommand emacs () ()
+  "Run Emac from the daemon"
+  (run-shell-command "emacsclient -c -a 'emacs'"))
+
+(defcommand hsplit-and-focus () ()
+  "Split the view horizontally and focus on the new window"
+  (hsplit)
+  (move-focus :left))
+
+(defcommand vsplit-and-focus () ()
+  "Split the view vertically and focus on the new window"
+  (vsplit)
+  (move-focus :up))
+
+(defcommand obsidian () ()
+  "Run Obsidian"
+  (run-shell-command "flatpak run md.obsidian.Obsidian"))
+
+(defcommand zotero () ()
+  "Run Zotero"
+  (run-shell-command "flatpak run org.zotero.Zotero"))
+
+(defcommand only-office () ()
+  "Run OnlyOffice"
+  (run-shell-command "flatpak run org.onlyoffice.desktopeditors"))
+
+(defparameter *stumpwm-slynk-session* nil)
+
+(defcommand start-slynk () ()
+  "Start Slynk for use in Emacs"
+  (handler-case
+      (defparameter *stumpwm-slynk-session*
+        (slynk:create-server
+         :dont-close t
+         :port slynk::default-server-port))
+    (error (c)
+      (format *error-output* "Error starting slynk: ~a~%" c))))
+
+(defcommand restart-slynk () ()
+  "Restart the Slynk server if any issues arise"
+  (slynk:stop-server slynk::default-server-port)
+  (slynk:create-server :port slynk::default-server-port :dont-close t))
+
+(defcommand select-wallpaper () ()
+      (run-shell-command "nitrogen ~/Pictures/Wallpapers/"))
+
+(defcommand term () ()
+  (run-shell-command "emacsclient -c -a 'emacs' --eval '(+vterm/here \"~\")'"))
+#+end_src
+
+* Gaps
+I like having gaps in my windows. I know they're useless, but I love their style.
+#+begin_src lisp
+(setf swm-gaps:*inner-gaps-size* 5)
+(swm-gaps:toggle-gaps-on)
+#+end_src
+* Fonts
+For my font, as I stated earlier, I'm using Fira Code Nerd Font. This is where I initialize that.
+#+begin_src lisp
+(set-font (make-instance 'xft:font :family "FiraCode Nerd Font" :subfamily "Regular" :size 13))
+(mode-line)
+#+end_src
+* Message and Input Bar
+For the message and input bar, I move it to the center of the screen, so it's easier to see and work with.
+#+begin_src lisp
+(setf *message-window-gravity* :center
+      *message-window-input-gravity* :center
+      *input-window-gravity* :center)
+#+end_src

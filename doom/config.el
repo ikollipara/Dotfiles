@@ -9,9 +9,9 @@
 (setq user-full-name "Ian Kollipara"
       user-mail-address "ian.kollipara@cune.org")
 
-(setq doom-font (font-spec :family "Fira Code Retina" :size 20)
-      doom-variable-pitch-font (font-spec :family "Comfortaa" :size 20)
-      doom-big-font (font-spec :family "Comfortaa" :size 30))
+(setq doom-font (font-spec :family "FiraCode Nerd Font" :size 20)
+      doom-variable-pitch-font (font-spec :family "Cantarell" :size 20)
+      doom-big-font (font-spec :family "Cantarell" :size 30))
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
@@ -44,7 +44,7 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/Dropbox/.org/")
+(setq org-directory "~/Dropbox/Org/")
 
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
@@ -85,23 +85,22 @@
 (add-to-list 'default-frame-alist `(alpha . ,ik/frame-transparency))
 
 
-(set-email-account! "cune.org"
-        '((mu4e-sent-folder . "/[Gmail].Sent Mail")
-          (mu4e-trash-folder . "/[Gmail].Trash")
-          (mu4e-refile-folder . "/[Gmail].All Mail")
-          (mu4e-starred-folder . "/[Gmail].Starred")
-          (mu4e-compose-signature . "Sincerely,\nIan"))
-        t)
-
-(after! mu4e
-  (setq +mu4e-gmail-accounts '(("ian.kollipara@cune.org" . "/cune"))
-        mu4e-index-cleanup t
-        mu4e-index-lazy-check t))
-
-(load (expand-file-name "~/.roswell/helper.el"))
+;; (set-email-account! "cune.org"
+;;         '((mu4e-sent-folder . "/[Gmail].Sent Mail")
+;;           (mu4e-trash-folder . "/[Gmail].Trash")
+;;           (mu4e-refile-folder . "/[Gmail].All Mail")
+;;           (mu4e-starred-folder . "/[Gmail].Starred")
+;;           (mu4e-compose-signature . "Sincerely,\nIan")
+;;         t)
+;;
+;; (after! mu4e
+;;   (setq +mu4e-gmail-accounts '(("ian.kollipara@cune.org" . "/cune"))
+;;         mu4e-index-cleanup t
+;;         mu4e-index-lazy-check t)
 
 (setq! bibtex-completion-bibliography '("/home/ikollipara/Dropbox/Zettlekasten/My Library.bib")
         citar-bibliography '("/home/ikollipara/Dropbox/Zettlekasten/My Library.bib"))
 
 (setq reftex-default-bibliograpy "/home/ikollipara/Dropbox/Zettlekasten/My Library.bib")
 
+(add-hook! 'python-mode-hook (modify-syntax-entry ?_ "w"))

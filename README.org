@@ -1,0 +1,25 @@
+#+title: Dotfiles
+#+author: Ian Kollipara
+#+date: Jun 4, 2022
+
+* Introduction
+I enjoy a good fedora setup, but I hate having to do it all myself. These files, and the makefile found here, all handle setting up and installing my preferred configuration.
+
+My used tools are:
+- Doom Emacs
+- Github Desktop (by Shiftkey)
+- Spotify
+- LaTeX (through AucTex)
+- OnlyOffice
+- Zotero
+- Obsidian
+- Dropbox
+
+I'm a student/researcher in Computer Science, so my tools are more geared towards research and development. In particular, I'm working towards my own custom configuration for Emacs, but that's still a ways off. I primarily store my References in Zotero, with notes about them stored in Obsidian. I write long papers in LaTeX. I keep OnlyOffice around for editing ~.docx~.
+
+* Deployment
+This deployment doesn't handle setting up Dropbox, or adding Chrome Extensions, but almost everything else. I primarily develop in Clojure, Python, and Haskell. I'm incredibly interested in Functional Programming. I'm considering Erlang and/or Elixir due to their usage of the Actor Model - an area of research for me.
+
+I've also considered replacing Brave with QuteBrowser, but I'm not there yet either. I use Emacs for all text editing, save notes, as well as managing my calendar. I sync it with Google so that all my events are stored together.
+
+To deploy run ~make install~.
