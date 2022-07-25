@@ -130,4 +130,8 @@
  :keymaps 'tempel-map
  "C-SPC" #'tempel-next)
 
+(general-define-key
+ :keymaps 'LaTeX-mode-map
+ "C-c c" #'citar-insert-citation)
+
 (provide 'imacs-keybinds)

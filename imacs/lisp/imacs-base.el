@@ -19,6 +19,9 @@
 
 (require 'all-the-icons)
 (require 'doom-modeline)
+(setq display-time-day-and-date t)
+(display-time-mode 1)
+(display-battery-mode 1)
 (doom-modeline-mode 1)
 
 (menu-bar-mode -1)
@@ -75,6 +78,7 @@
 		logos-focus-mode-extra-functions
 		dired-mode-hook
 		calendar-mode-hook
+		helpful-mode-hook
 		vterm-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 

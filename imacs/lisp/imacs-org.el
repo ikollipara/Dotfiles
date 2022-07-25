@@ -3,8 +3,6 @@
 ;;; Personal Org Base Configuration
 
 (straight-use-package 'org)
-;;(straight-use-package 'org-superstar)
-;;(straight-use-package 'svg-tag-mode)
 (straight-use-package 'denote)
 (straight-use-package 'org-modern)
 
@@ -13,6 +11,7 @@
 (add-hook 'org-mode-hook 'flymake-mode)
 (add-hook 'org-mode-hook 'org-indent-mode)
 (add-hook 'org-mode-hook 'variable-pitch-mode)
+(add-hook 'org-mode-hook 'olivetti-mode)
 
 (with-no-warnings
   (custom-declare-face '+org-todo-onhold '((t (:inherit (bold warning org-todo)))) ""))
@@ -61,9 +60,6 @@
 (setq org-hide-emphasis-markers t
       org-hide-leading-stars t)
 
-;; (require 'org-superstar)
-;; (add-hook 'org-mode-hook 'org-superstar-mode)
-
 (setq denote-directory "~/Dropbox/Org/Denote"
       denote-prompts '(title keywords)
       denote-known-keywords '("research" "school" "project"
@@ -72,15 +68,6 @@
 (require 'denote-dired)
 (setq denote-dired-directories (list denote-directory))
 (add-hook 'dired-mode-hook #'denote-dired-mode-in-directories)
-
-;; (setq svg-tag-tags
-;;       '(("TODO" . ((lambda (tag) (svg-tag-make "TODO" :face 'org-todo :inverse t :margin 0))))
-;; 	("DONE" . ((lambda (tag) (svg-tag-make "DONE" :face 'org-done :inverse t :margin 0))))
-;; 	("WAIT" . ((lambda (tag) (svg-tag-make "WAIT" :face '+org-todo-onhold :margin 0))))
-;; 	("IDEA" . ((lambda (tag) (svg-tag-make "IDEA" :face 'org-todo :inverse t :margin 0))))
-;; 	("PROJ" . ((lambda (tag) (svg-tag-make "PROJ" :face 'org-done :inverse t :margin 0))))))
-;; (require 'svg-tag-mode)
-;; (add-hook 'org-mode-hook 'svg-tag-mode)
 
 (require 'org-modern)
 (add-hook 'org-mode-hook 'org-modern-mode)

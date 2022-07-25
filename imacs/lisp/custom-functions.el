@@ -81,4 +81,15 @@
   (logos-focus-mode)
   (logos-narrow-dwim))
 
+(defun imacs/latex-fold-after-save ()
+  "Fold the Document after saving"
+  (when (equal major-mode 'latex-mode)
+    (TeX-fold-buffer)))
+
+(defmacro imacs/after-mode-save (mode func)
+  "Register this function as after-save-hook for only the given mode"
+  `(add-hook 'after-save-hook #'(lambda ()
+				  (when (equal major-mode ,mode)
+				    (,func)))))
+
 (provide 'custom-functions)
