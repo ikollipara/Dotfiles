@@ -36,7 +36,7 @@
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;hydra
        ;;indent-guides     ; highlighted indent columns
-       (ligatures +fira)         ; ligatures and symbols to make your code pretty again
+       ;; (ligatures +fira)         ; ligatures and symbols to make your code pretty again
        ;;minimap           ; show a map of the code on the side
        modeline          ; snazzy, Atom-inspired modeline, plus API
        ;;nav-flash         ; blink cursor line after big motions
@@ -116,7 +116,7 @@
        ;;beancount         ; mind the GAAP
        ;;(cc +lsp)         ; C > C++ == 1
        (clojure +lsp)           ; java with a lisp
-       ;; common-lisp       ; if you've seen one lisp, you've seen them all
+       common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
        ;;crystal           ; ruby at the speed of c
        ;;csharp            ; unity, .NET, and mono shenanigans
@@ -134,7 +134,7 @@
        ;;fsharp            ; ML stands for Microsoft's Language
        ;;fstar             ; (dependent) types and (monadic) effects and Z3
        ;;gdscript          ; the language you waited for
-       ;;(go +lsp)         ; the hipster dialect
+       (go +lsp)         ; the hipster dialect
        ;;(graphql +lsp)    ; Give queries a REST
        (haskell +lsp)    ; a language that's lazier than I am
        ;;hy                ; readability of scheme w/ speed of python
@@ -152,7 +152,7 @@
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
-       (org +pretty +journal +pandoc)               ; organize your plain life in plain text
+       (org +pretty +journal +pandoc +present)
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
@@ -176,7 +176,7 @@
        ;;zig               ; C, but simpler
 
        :email
-       ;; (mu4e +org +gmail)
+       (mu4e +org +gmail)
        ;;notmuch
        ;;(wanderlust +gmail)
 

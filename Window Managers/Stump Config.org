@@ -1,7 +1,31 @@
 #+title: Stump Config
 #+author: Ian Kollipara
 #+date: May 31, 2022
-#+property: header-args :tangle config.lisp
+#+property: header-args :tangle ~/.config/stumpwm/config
+
+* Table of Contents :toc:
+- [[#introduction][Introduction]]
+- [[#initial-setup][Initial Setup]]
+  - [[#imports][Imports]]
+  - [[#misc][Misc]]
+- [[#startup-applications][Startup Applications]]
+- [[#keybinds][Keybinds]]
+  - [[#prefix-key][Prefix Key]]
+  - [[#window-management][Window Management]]
+  - [[#group-management][Group Management]]
+  - [[#applications][Applications]]
+- [[#groups][Groups]]
+- [[#mode-line][Mode-line]]
+  - [[#wifi][Wifi]]
+  - [[#volume][Volume]]
+  - [[#battery][Battery]]
+  - [[#group-format-configuration][Group Format Configuration]]
+  - [[#time-and-date][Time and Date]]
+  - [[#full-mode-line-format][Full Mode-line Format]]
+- [[#commands][Commands]]
+- [[#gaps][Gaps]]
+- [[#fonts][Fonts]]
+- [[#message-and-input-bar][Message and Input Bar]]
 
 * Introduction
 This is my *StumpWM* Config. Much of it is hand-crafted, although some is pulled from [[https://github.com/Gavinok/stump-conf/blob/main/config][Gavin Freeborn's Config]]. The theme of the system is [[https://github.com/catppuccin][Catppuccin]]. I use Emacs for a majority of tasks, but not all of them. Emacs is used for the terminal emulator via =vterm=, as the primary editor, and as my email client via =mu4e=. This config facilitates much of that for me.
@@ -258,8 +282,8 @@ For displaying groups I use a few custom formatting elements. These wrap the act
 (setf *group-formatters*
       (append *group-formatters* '((#\[ current-group-left-bracket)
                                    (#\] current-group-right-bracket)
-                                   (#\C current-group-color-start)
-                                   (#\c current-group-color-start))))
+                                   (#\C current-group-font-color-start)
+                                   (#\c current-group-font-color-start))))
 
 (setf *group-format* "%[%C%t%c%]")
 #+end_src

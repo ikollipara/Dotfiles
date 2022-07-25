@@ -77,7 +77,6 @@
 ;; etc).
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
-;(set-frame-parameter (selected-frame) 'alpha efs/frame-transparency)
 
 (defvar ik/frame-transparency '(90 . 90))
 
@@ -85,22 +84,89 @@
 (add-to-list 'default-frame-alist `(alpha . ,ik/frame-transparency))
 
 
-;; (set-email-account! "cune.org"
-;;         '((mu4e-sent-folder . "/[Gmail].Sent Mail")
-;;           (mu4e-trash-folder . "/[Gmail].Trash")
-;;           (mu4e-refile-folder . "/[Gmail].All Mail")
-;;           (mu4e-starred-folder . "/[Gmail].Starred")
-;;           (mu4e-compose-signature . "Sincerely,\nIan")
-;;         t)
-;;
-;; (after! mu4e
-;;   (setq +mu4e-gmail-accounts '(("ian.kollipara@cune.org" . "/cune"))
-;;         mu4e-index-cleanup t
-;;         mu4e-index-lazy-check t)
+(require 'smtpmail)
+(set-email-account! "cune.org"
+        '((mu4e-sent-folder . "/[Gmail].Sent Mail")
+          (mu4e-trash-folder . "/[Gmail].Trash")
+          (mu4e-refile-folder . "/[Gmail].All Mail")
+          (mu4e-starred-folder . "/[Gmail].Starred")
+          (smtpmail-smtp-user . "ian.kollipara@cune.org")
+          (smtpmail-smtp-server . "smtp.gmail.com")
+          (smtpmail-smtp-service . 587)
+          (mu4e-compose-signature . "Sincerely,\nIan"))
+        t)
+
+(after! mu4e
+  (setq +mu4e-gmail-accounts '(("ian.kollipara@cune.org" . "/cune"))
+        mu4e-index-cleanup t
+        mu4e-index-lazy-check t))
 
 (setq! bibtex-completion-bibliography '("/home/ikollipara/Dropbox/Zettlekasten/My Library.bib")
-        citar-bibliography '("/home/ikollipara/Dropbox/Zettlekasten/My Library.bib"))
-
-(setq reftex-default-bibliograpy "/home/ikollipara/Dropbox/Zettlekasten/My Library.bib")
+       citar-bibliography '("/home/ikollipara/Dropbox/Zettlekasten/My Library.bib")
+       reftex-default-bibliograpy "/home/ikollipara/Dropbox/Zettlekasten/My Library.bib")
 
 (add-hook! 'python-mode-hook (modify-syntax-entry ?_ "w"))
+
+(after! org
+  (setq org-hide-emphasis-markers t))
+
+(setq +latex-viewers '(pdf-tools))
+
+(after! org-journal
+  (setq org-journal-dir "/home/ikollipara/Dropbox/REU/UTD/Research/Research Journal"
+        org-journal-date-format "%x - %A"))
+
+
+(after! smudge
+ (setq smudge-oauth2-client-id "08be6f422d0d486eadbe9207f0eda57c")
+ (setq smudge-oauth2-client-secret "f4f560fce2ca42e0bef597a3e4451f96")
+ (setq smudge-transport 'connect)
+ (map! :leader
+       (:prefix ("S" . "Smudge")
+        :desc "Toggle Shuffle" "s" #'smudge-controller-toggle-shuffle
+        :desc "Toggle Repeat" "r" #'smudge-controller-toggle-repeat
+        :desc "Play/Pause" "p" #'smudge-controller-toggle-play
+        :desc "Next Track" ">" #'smudge-controller-next-track
+        :desc "Prev Track" "<" #'smudge-controller-previous-track
+        (:prefix ("P" . "playlist")
+         :desc "My Playlists" "m" #'smudge-my-playlists
+         :desc "Featured Playlists" "f" #'smudge-featured-playlists
+         :desc "Search Playlists" "s" #'smudge-playlist-search)
+        (:prefix ("t" . "track")
+         :desc "Recently Played" "r" #'smudge-recently-played
+         :desc "Search Track" "s" #'smudge-track-search))))
+
+
+(add-hook! (org-mode-hook latex-mode-hook) #'citar-refresh)
+
+(after! doom-modeline
+  (setq display-time-day-and-date t)
+  (display-battery-mode 1)
+  (display-time-mode 1))
+
+(defun wifi-string ()
+  "Get the current network"
+  (let ((wifi (shell-command-to-string "nmcli d status | awk '/[^dis]connected/ {print $4}'")))
+    (if (equal wifi "")
+        "睊 Disconnected"
+        (concat "直 " (substring wifi 0 -1)))))
+
+(setq-default header-line-format '(
+                                   (" ")
+                                   (:eval (capitalize (+workspace-current-name)))
+                                   (" | ")
+                                   (:eval (wifi-string))))
+
+(setq org-noter-notes-search-path '("~/Dropbox/REU/UTD/Research/Actor Model Design for MCPSs through Rebeca/Notes/"))
+
+(add-to-list '+lookup-provider-url-alist '("Google Scholar" "https://scholar.google.com/scholar?q=%s"))
+
+(map! :map LaTeX-mode-map
+      :localleader
+      :nvm "@" 'citar-insert-citation
+      :nvm "s" 'LaTeX-section
+      :nvm "e" 'LaTeX-environment
+      :i "C-j" 'LaTeX-insert-item)
+
+(map! :leader
+      :nvm "/" 'consult-line)

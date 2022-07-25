@@ -49,3 +49,7 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
 
+(package! smudge)
+(package! svelte-mode)
+(package! jinja2-mode)
+(package! org-present)

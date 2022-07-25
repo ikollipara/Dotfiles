@@ -4,7 +4,9 @@
 #+property: header-args :tangle .zshrc
 
 * Introduction
-I use Zsh as my primary shell. I really like its capabilities, and its got some niceties that bash doesn't. For my configuration, I use a few plugins, which can be installed by running ~make zsh-install~.
+I use Zsh as my primary shell.
+I really like its capabilities, and its got some niceties that bash doesn't.
+For my configuration, I use a few plugins, which can be installed by running ~make zsh-install~.
 
 * Environment Variables
 To help keep my directories clean, in part aided by [[https://github.com/b3nj5m1n/xdg-ninja][xdg-ninja]], I set a few environment variables.
@@ -15,7 +17,8 @@ export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
 #+end_src
 ** Home Folder Cleanup
-As I mentioned earlier, I like a clean home. So, following the directions of xdg-ninja, I have a few more things I add.
+As I mentioned earlier, I like a clean home.
+So, following the directions of xdg-ninja, I have a few more things I add.
 #+begin_src shell
 export CABAL_CONFIG="$XDG_CONFIG_HOME/cabal/config"
 export CABAL_DIR="$XDG_DATA_HOME/cabal"
@@ -42,7 +45,8 @@ export PATH="$HOME/.local/bin:$HOME/.config/emacs/bin:$PATH"
 #+end_src
 
 * Aliases
-I use a few important aliases for moving around my file system easier. The most complicated of which is ~ls~, which is overridden to use [[https://github.com/ogham/exa][exa]].
+I use a few important aliases for moving around my file system easier.
+The most complicated of which is ~ls~, which is overridden to use [[https://github.com/ogham/exa][exa]].
 #+begin_src shell
 alias h="cd"
 alias cls="clear"
@@ -51,7 +55,8 @@ alias ls="exa"
 #+end_src
 
 * Stylization
-I do like my terminal to be pretty, so I use [[https://starship.rs/][Starship: Cross-Shell Prompt]] and [[https://github.com/zsh-users/zsh-syntax-highlighting][zsh-syntax-highlighting]]. Another thing I do, that's related but not perfectly fit here is the vim keybindings I use for the terminal.
+I do like my terminal to be pretty, so I use [[https://starship.rs/][Starship: Cross-Shell Prompt]] and [[https://github.com/zsh-users/zsh-syntax-highlighting][zsh-syntax-highlighting]].
+Another thing I do, that's related but not perfectly fit here is the vim keybindings I use for the terminal.
 #+begin_src shell
 bindkey -v
 source "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
