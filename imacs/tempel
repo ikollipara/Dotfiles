@@ -20,3 +20,6 @@ python-mode
 (fi "from " p " import " p q)
 (ct "# type: ignore")
 (afunc "async def " p "(" (p "*args") "):" n> "doc" q)
+
+emacs-lisp-mode
+(defun "(defun imacs/" p " (" p ")" n> "\"" p "\"" n> q")")

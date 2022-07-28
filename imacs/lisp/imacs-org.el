@@ -4,11 +4,11 @@
 
 (straight-use-package 'org)
 (straight-use-package 'denote)
+(straight-use-package 'toc-org)
 (straight-use-package 'org-modern)
 
 (require 'org)
 (add-hook 'org-mode-hook 'flyspell-mode)
-(add-hook 'org-mode-hook 'flymake-mode)
 (add-hook 'org-mode-hook 'org-indent-mode)
 (add-hook 'org-mode-hook 'variable-pitch-mode)
 (add-hook 'org-mode-hook 'olivetti-mode)
@@ -22,6 +22,11 @@
       org-ellipsis " ▾"
       org-log-into-drawer t
       org-agenda-files (list org-directory))
+
+;; (setq org-todo-keywords '((sequence
+;; 			   "TODO(t)" "WAIT(w)" "|" "DONE(d)")
+;; 			  (sequence
+;; 			   "[ ](T)" "[~](S)" "[?](W)")))
 
 (setq org-todo-keywords '((sequence
 			   "TODO(t)" "[ ](T)" "PROJ(p)"
@@ -72,6 +77,9 @@
 (require 'org-modern)
 (add-hook 'org-mode-hook 'org-modern-mode)
 (add-hook 'org-agenda-finalize-hook 'org-modern-agenda)
+
+(require 'toc-org)
+(add-hook 'org-mode-hook 'toc-org-mode)
 
 (setq initial-buffer-choice #'imacs/initial-buffer-agenda)
 

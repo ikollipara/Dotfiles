@@ -92,4 +92,10 @@
 				  (when (equal major-mode ,mode)
 				    (,func)))))
 
+(defun imacs/magit-full-frame ()
+  "Open Magit in a Full Frame"
+  (interactive)
+  (magit-status)
+  (delete-other-windows))
+
 (provide 'custom-functions)

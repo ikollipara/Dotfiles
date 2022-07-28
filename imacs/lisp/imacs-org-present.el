@@ -13,16 +13,16 @@
 (require 'olivetti)
 
 (require 'logos)
-(setq logos-olivetti t
-      logos-outlines-are-pages t
+(setq logos-outlines-are-pages t
       logos-outline-regexp-alist `((emacs-lisp-mode . ,(format "\\(^;;;+ \\|%s\\)" logos--page-delimiter))
 	  (org-mode . ,(format "\\(^\\*+ +\\|^-\\{5\\}$\\|%s\\)" logos--page-delimiter))
 	  (t . ,(or outline-regexp logos--page-delimiter))))
-(setq-default logos-hide-mode-line t
+(setq-default logos-hide-mode-line nil
 	      logos-hide-buffer-boundaries t
 	      logos-hide-fringe t
 	      logos-variable-pitch t
-	      logos-scroll-lock t)
+	      logos-scroll-lock nil
+	      logos-olivetti t)
 
 (require 'ox-pandoc)
 

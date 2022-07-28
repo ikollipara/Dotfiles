@@ -5,8 +5,8 @@
 (straight-use-package 'general)
 
 (require 'general)
-(general-create-definer imacs/leader :prefix "SPC")
-(general-create-definer imacs/local-leader :prefix "SPC m")
+(general-create-definer imacs/leader :prefix "SPC" :global-prefix "C-c")
+(general-create-definer imacs/local-leader :prefix "SPC m" :global-prefix "C-c m")
 
 (general-define-key :states '(normal motion) "/" #'consult-line)
 
@@ -35,9 +35,14 @@
   "t w" #'toggle-word-wrap
   "t z" #'logos-focus-mode
 
+  "g c" #'org-clock-goto
+
   "o e" #'eshell
   "o -" #'dired-jump
   "o t" #'vterm
+  "o g" #'imacs/magit-full-frame
+
+  "c c" #'consult-flycheck
 
   "b d" #'kill-current-buffer
   "b n" #'next-buffer
@@ -50,6 +55,7 @@
   "n A" #'org-agenda
 
   "d f" #'imacs/denote-list-dir
+  "d n" #'denote
 
   "SPC" #'projectile-find-file
   "p a" #'projectile-add-known-project
@@ -79,13 +85,14 @@
   :states '(normal visual motion)
   :keymaps 'org-mode-map
   "A" #'org-archive-subtree
-  "a" #'org-todo
+  "t" #'org-todo
   "@" #'citar-insert-citation
   "c i" #'org-clock-in
   "c o" #'org-clock-out
   "c j" #'org-clock-goto
   "n l" #'denote-link
-  "n b" #'denote-link-backlinks)
+  "n b" #'denote-link-backlinks
+  "n n" #'denote)
 
 (imacs/local-leader
   :states '(normal visual motion)
@@ -133,5 +140,16 @@
 (general-define-key
  :keymaps 'LaTeX-mode-map
  "C-c c" #'citar-insert-citation)
+
+(general-define-key
+ :keymaps 'org-mode-map
+ "C-c C-j" #'org-insert-item)
+
+(general-define-key
+ :keymaps 'org-mode-map
+ :states '(normal visual)
+ "RET" #'org-open-at-point)
+
+(general-define-key "C-x g" #'imacs/magit-full-frame)
 
 (provide 'imacs-keybinds)

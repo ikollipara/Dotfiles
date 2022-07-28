@@ -11,6 +11,7 @@
 (straight-use-package 'lsp-mode)
 (straight-use-package 'lsp-ui)
 (straight-use-package 'all-the-icons-completion)
+(straight-use-package 'consult-flycheck)
 
 (require 'vertico)
 (vertico-mode 1)
@@ -31,5 +32,7 @@
 
 (require 'all-the-icons-completion)
 (all-the-icons-completion-mode)
+
+(require 'consult-flycheck)
 
 (provide 'imacs-completion)

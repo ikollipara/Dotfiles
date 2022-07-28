@@ -20,7 +20,7 @@
 (require 'jinja2-mode)
 (add-to-list 'auto-mode-alist '("\\.j2\\'" . jinja2-mode))
 
-(imacs/after-mode-save 'python-mode (lambda () (shell-command (concat "black" (buffer-name)))))
-(imacs/after-mode-save 'python-mode (lambda () (shell-command (concat "isort" (buffer-name)))))
+(imacs/after-mode-save 'python-mode (lambda () (shell-command (concat "black " (buffer-name)))))
+(imacs/after-mode-save 'python-mode (lambda () (shell-command (concat "isort " (buffer-name)))))
 
 (provide 'imacs-python)

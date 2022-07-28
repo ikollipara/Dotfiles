@@ -3,6 +3,7 @@
 ;;; Base of Personal Configuration
 
 (recentf-mode 1)
+(global-auto-revert-mode 1)
 
 (straight-use-package 'all-the-icons)
 (straight-use-package 'doom-modeline)
@@ -12,10 +13,11 @@
 (straight-use-package 'tempel)
 (straight-use-package 'helpful)
 (straight-use-package 'no-littering)
+(straight-use-package 'flycheck)
 (straight-use-package 'smartparens)
 
-(setq modus-themes-fringes 'subtle)
 (load-theme 'modus-vivendi t)
+(setq modus-themes-fringes 'subtle)
 
 (require 'all-the-icons)
 (require 'doom-modeline)
@@ -33,7 +35,7 @@
 
 (set-face-attribute 'default nil :font "FiraCode Nerd Font" :height 130)
 (set-face-attribute 'fixed-pitch nil :font "FiraCode Nerd Font" :height 150)
-(set-face-attribute 'variable-pitch nil :font "Cabin" :height 180 :weight 'light)
+(set-face-attribute 'variable-pitch nil :font "Avenir Next LT Pro" :height 180 :weight 'light)
 
 (global-display-line-numbers-mode t)
 (global-prettify-symbols-mode t)
@@ -81,5 +83,8 @@
 		helpful-mode-hook
 		vterm-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+(require 'flycheck)
+(global-flycheck-mode 1)
 
 (provide 'imacs-base)
