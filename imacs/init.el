@@ -25,6 +25,8 @@
 (require 'imacs-org)
 (require 'imacs-org-present)
 (require 'imacs-python)
+(require 'imacs-clojure)
+(require 'imacs-go)
 (require 'imacs-web)
 (require 'imacs-latex)
 (require 'imacs-research)

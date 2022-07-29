@@ -5,6 +5,7 @@
 (straight-use-package 'org-noter)
 (straight-use-package 'pdf-tools)
 (straight-use-package 'citar)
+(straight-use-package 'biblio)
 
 (require 'citar)
 (setq citar-bibliography (list "~/Dropbox/Zettlekasten/My Library.bib")
@@ -16,5 +17,7 @@
       org-noter-notes-search-path (list denote-directory org-directory))
 
 (require 'pdf-tools)
+
+(require 'biblio)
 
 (provide 'imacs-research)

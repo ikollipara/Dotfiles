@@ -14,12 +14,13 @@ python-mode
 (header "\"\"\"" n (buffer-name) n "Ian Kollipara" n (format-time-string "%Y.%m.%d") n n p "\"\"\"" q)
 (cls "class " p  ":" n> q)
 (doc "\"\"\" " p "." n> n> p n> "\"\"\"" n> n> q)
-(func "def " p "(" (p "*args") "):" n> "doc" q)
+(func "def " p "(" p "):" n> "doc" q)
 (forin "for " p " in " p ":" n> q)
 (im "# Imports" n q)
 (fi "from " p " import " p q)
 (ct "# type: ignore")
-(afunc "async def " p "(" (p "*args") "):" n> "doc" q)
+(afunc "async def " p "(" p "):" n> "doc" q)
 
 emacs-lisp-mode
+
 (defun "(defun imacs/" p " (" p ")" n> "\"" p "\"" n> q")")

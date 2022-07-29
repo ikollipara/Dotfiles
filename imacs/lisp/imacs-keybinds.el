@@ -52,10 +52,16 @@
   "n f" #'imacs/list-org-dir
   "n c" #'org-capture
   "n a" #'imacs/display-gtd-view
+  "n n" #'imacs/display-next-actions
   "n A" #'org-agenda
 
   "d f" #'imacs/denote-list-dir
   "d n" #'denote
+
+  "r f" #'biblio-lookup
+  "r a" #'biblio-arxiv-lookup
+  "r e" #'biblio-ieee-lookup
+  "r d" #'biblio-dissemin-lookup
 
   "SPC" #'projectile-find-file
   "p a" #'projectile-add-known-project
@@ -86,6 +92,7 @@
   :keymaps 'org-mode-map
   "A" #'org-archive-subtree
   "t" #'org-todo
+  "/" #'consult-org-heading
   "@" #'citar-insert-citation
   "c i" #'org-clock-in
   "c o" #'org-clock-out
@@ -149,6 +156,14 @@
  :keymaps 'org-mode-map
  :states '(normal visual)
  "RET" #'org-open-at-point)
+
+(general-define-key
+ :keymaps 'biblio-selection-mode-map
+ "j" #'biblio--selection-next
+ "k" #'biblio--selection-previous
+ "h" #'evil-backward-char
+ "l" #'evil-forward-char
+ "H" #'biblio--selection-help)
 
 (general-define-key "C-x g" #'imacs/magit-full-frame)
 

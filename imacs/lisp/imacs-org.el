@@ -23,17 +23,12 @@
       org-log-into-drawer t
       org-agenda-files (list org-directory))
 
-;; (setq org-todo-keywords '((sequence
-;; 			   "TODO(t)" "WAIT(w)" "|" "DONE(d)")
-;; 			  (sequence
-;; 			   "[ ](T)" "[~](S)" "[?](W)")))
-
 (setq org-todo-keywords '((sequence
-			   "TODO(t)" "[ ](T)" "PROJ(p)"
-			   "IDEA(i)"
-			   "[~](S)" "WAIT(w)" "[?](W)"
-			   "|"
-			   "DONE(d)" "[X](D)")))
+			   "TODO(t)" "NEXT(n)" "WAIT(w)" "|" "DONE(d)")
+			  (sequence
+			   "[ ](T)" "[-](N)" "|" "[X](D)")
+			  (sequence
+			   "IDEA(i)" "PROJ(p)" "|" "DONE(d)")))
 (setq org-todo-keyword-faces '(("WAIT" . +org-todo-onhold)))
 
 (setq org-agenda-custom-commands
@@ -54,7 +49,17 @@
 		   (org-agenda-entry-types '(:deadline :scheduled))))
 	  (todo "IDEA"
 		((org-agenda-overriding-header "\nThings to Consider\n")
-		 (org-agenda-block-separator nil)))))))
+		 (org-agenda-block-separator nil)))
+	  (todo "TODO"
+		  ((org-agenda-overriding-header "Next Actions\n")
+		   (org-agenda-block-separator nil)
+		   (org-agenda-files '("~/Dropbox/Org/next-actions.org"))))))
+	("N" "Next Actions"
+	 ((todo "TODO"
+		((org-agenda-overriding-header "Next Actions\n")
+		 (org-agenda-files '("~/Dropbox/Org/next-actions.org"))
+		 (org-agenda-todo-keyword-format "")
+		 (org-agenda-prefix-format "")))))))
 
 (setq org-capture-templates
       `(("i" "Idea" entry (file+olp "~/Dropbox/Org/intray.org" "Inbox")

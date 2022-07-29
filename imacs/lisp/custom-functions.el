@@ -28,7 +28,16 @@
   (interactive)
   (org-agenda nil "A")
   (delete-other-windows)
-  (display-line-numbers-mode -1))
+  (display-line-numbers-mode -1)
+  (olivetti-mode 1))
+
+(defun imacs/display-next-actions ()
+  "Display the next actions due"
+  (interactive)
+  (org-agenda nil "N")
+  (delete-other-windows)
+  (display-line-numbers-mode -1)
+  (olivetti-mode 1))
 
 (defun imacs/denote-list-dir ()
   "Open Dired to the Denote Directory"
