@@ -1,0 +1,8 @@
+alias h="cd"
+alias ls="exa"
+alias b="cd .."
+alias cdp="cd $HOME/Documents/Projects"
+alias cds="cd $HOME/Documents/Scripts"
+alias docker="podman"
+alias n="neovim"
+alias np="tmux"
