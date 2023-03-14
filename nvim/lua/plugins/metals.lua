@@ -26,8 +26,8 @@ return {
       pattern = { "scala", "sbt", "java" },
       callback = function()
         metals.initialize_or_attach(config)
-        vim.keymap.set("n", "<leader><localleader>c", metals.new_scala_file)
-        vim.keymap.set("n", "<leader><localleader>t", ":Telescope metals commands<CR>")
+        vim.keymap.set("n", "<leader>C", metals.new_scala_file)
+        vim.keymap.set("n", "<leader>T", ":Telescope metals commands<CR>")
       end,
       group = nvim_metals_group,
     })
