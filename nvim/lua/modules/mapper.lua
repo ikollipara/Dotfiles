@@ -11,7 +11,7 @@ local M = {}
 ---@field lhs string
 ---@field rhs string|function
 
----@param mode "n"|"i"|"v"
+---@param mode "n"|"i"|"v"|"t"
 local function map(mode)
   ---@param lhs string
   ---@param rhs string|function
@@ -23,6 +23,7 @@ end
 local nmap = map("n")
 local imap = map("i")
 local vmap = map("v")
+local tmap = map("t")
 
 ---Setup Normal Keybindings
 ---@param t KeyTable[]
@@ -45,6 +46,12 @@ end
 function M.visual(t)
   for _, mapping in ipairs(t) do
     vmap(mapping.lhs, mapping.rhs)
+  end
+end
+
+function M.term(t)
+  for _, mapping in ipairs(t) do
+    tmap(mapping.lhs, mapping.rhs)
   end
 end
 
