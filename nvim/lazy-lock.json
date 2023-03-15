@@ -7,6 +7,7 @@
   "dressing.nvim": { "branch": "master", "commit": "5f44f829481640be0f96759c965ae22a3bcaf7ce" },
   "gkeep.nvim": { "branch": "master", "commit": "eeb4f0e94bc10c3031f417c9d6adddfb2f104117" },
   "harpoon": { "branch": "master", "commit": "f7040fd0c44e7a4010369136547de5604b9c22a1" },
+  "knap": { "branch": "main", "commit": "8c083d333b8a82421a521539eb1c450b06c90eb6" },
   "lazy.nvim": { "branch": "main", "commit": "5b7b8c51495de8ced973cc23f0a58cadd21de875" },
   "lazygit.nvim": { "branch": "main", "commit": "32bffdebe273e571588f25c8a708ca7297928617" },
   "mason.nvim": { "branch": "main", "commit": "441c9ea2ab385c2e6407a637775b4b392533d265" },
