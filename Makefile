@@ -14,7 +14,7 @@
 #  	       | That is still in the works.
 #-----------------------------------------------------------------------------
 
-packages = exa fd-find neovim tmux tree-sitter tree-sitter-cli starship brave-browser util-linux-user zsh
+packages = exa fd-find neovim tmux tree-sitter tree-sitter-cli starship brave-browser util-linux-user zsh lazygit
 flatpaks = com.spotify.Client org.zotero.Zotero 
 
 all: configure install
@@ -51,14 +51,16 @@ configure:
 	dnf copr enable atim/starship
 	@echo "4. Enabling Neovim Nightly"
 	sudo dnf copr enable agriffis/neovim-nightly
-	@echo "5. Enabling Flathub"
+	@echo "5. Enabling Lazygit"
+	sudo dnf copr enable atim/lazygit -y
+	@echo "6. Enabling Flathub"
 	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-	@echo "6. Enabling Brave"
+	@echo "7. Enabling Brave"
 	sudo dnf install dnf-plugins-core
 	sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
 	sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
-	@echo "7. Adding ZDOTDIR to zshenv"
+	@echo "8. Adding ZDOTDIR to zshenv"
 	sudo echo "export $ZDOTDIR=\"$HOME/.config/zsh\" >> /etc/zshenv"
-	@echo "8. Making Scripts and Projects Directory"
+	@echo "9. Making Scripts and Projects Directory"
 	mkdir $(HOME)/Documents/Scripts $(HOME)/Documents/Projects
 	@echo "Finished Configuration!"
