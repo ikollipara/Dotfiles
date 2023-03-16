@@ -10,13 +10,18 @@ local s = ls.snippet
 local t = ls.text_node
 local i = ls.insert_node
 local f = ls.function_node
+local fmt = require("luasnip.extras.fmt").fmt
+local extras = require("luasnip.extras")
 
 
 return {
   s({ trig = "--h", desc = "File Header", snippetType = "autosnippet" }, {
     t {
       "--[[",
-      "-- " .. vim.fn.expand("%:t"),
+      "-- ",
+    }, extras.partial(vim.fn.expand, "%:t"),
+    t {
+      "",
       "-- Ian Kollipara",
       "-- " .. require("os").date("%Y.%m.%d"),
       "--",
@@ -31,17 +36,19 @@ return {
     },
     i(0)
   }),
-  s({ trig = "func", desc = "Function Declaration", snippetType = "autosnippet" }, {
-    t("function "), i(1), t("("), i(2), t { ")",
-    "  " }, i(0), t { "",
-    "end" }
-  }),
-  s({ trig = "lmod", desc = "Lua Module", snippetType = "autosnippet" }, {
-    t {
-      "local M = {}",
-      "",
-      "" }, i(0), t { "",
-    "",
-    "return M" }
-  })
+  s({ trig = "func", desc = "Function Declaration", snippetType = "autosnippet" },
+    fmt([[
+    function {}({})
+      {}
+    end
+    ]], { i(1), i(2), i(0) })
+  ),
+  s({ trig = "lmod", desc = "Lua Module", snippetType = "autosnippet" },
+    fmt([[
+    local M = {{}}
+
+    {}
+
+    return M
+    ]], { i(0) }))
 }

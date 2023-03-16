@@ -27,6 +27,7 @@ return {
       tsserver = {},
       html = {},
       cssls = {},
+      gopls = {},
     }
   },
   config = function(_, opts)

@@ -14,7 +14,7 @@
 #  	       | That is still in the works.
 #-----------------------------------------------------------------------------
 
-packages = exa fd-find neovim tmux tree-sitter tree-sitter-cli starship brave-browser util-linux-user zsh lazygit
+packages = exa fd-find neovim tmux libtree-sitter tree-sitter-cli starship brave-browser util-linux-user zsh lazygit
 flatpaks = com.spotify.Client org.zotero.Zotero 
 
 all: configure install

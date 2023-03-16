@@ -1,0 +1,14 @@
+--[[
+-- go.lua
+-- Ian Kollipara
+-- 2023.03.15
+--
+-- Go Config
+--]]
+local opt = vim.opt
+
+opt.tabstop = 4
+opt.softtabstop = 4
+opt.shiftwidth = 4
+opt.expandtab = true
+opt.smartindent = true
