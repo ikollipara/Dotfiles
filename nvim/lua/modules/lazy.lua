@@ -5,10 +5,9 @@
 --
 -- Lazy Configuration
 --]]
-
 local M = {}
 
-function M.setup()
+function M:setup()
   local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
   if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
@@ -21,12 +20,16 @@ function M.setup()
     })
   end
   vim.opt.rtp:prepend(lazypath)
+
+  return self
 end
 
 ---@param pluginDir string
-function M.load_(pluginDir)
+function M:load_(pluginDir)
   require("lazy").setup(pluginDir)
   require("tokyonight").load()
+
+  return self
 end
 
 return M

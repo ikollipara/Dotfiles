@@ -11,6 +11,7 @@ local M = {}
 ---@field lhs string
 ---@field rhs string|function
 
+
 ---@param mode "n"|"i"|"v"|"t"
 local function map(mode)
   ---@param lhs string
@@ -27,31 +28,50 @@ local tmap = map("t")
 
 ---Setup Normal Keybindings
 ---@param t KeyTable[]
-function M.normal(t)
+function M:normal(t)
   for _, mapping in ipairs(t) do
     nmap(mapping.lhs, mapping.rhs)
   end
+
+  return self
 end
 
 ---Setup Insert Keybindings
 ---@param t KeyTable[]
-function M.insert(t)
+function M:insert(t)
   for _, mapping in ipairs(t) do
     imap(mapping.lhs, mapping.rhs)
   end
+
+  return self
 end
 
 ---Setup Visual Keybindings
 ---@param t KeyTable[]
-function M.visual(t)
+function M:visual(t)
   for _, mapping in ipairs(t) do
     vmap(mapping.lhs, mapping.rhs)
   end
+
+  return self
 end
 
-function M.term(t)
+function M:term(t)
   for _, mapping in ipairs(t) do
     tmap(mapping.lhs, mapping.rhs)
+  end
+
+  return self
+end
+
+---@param modes ("n"|"i"|"v"|"t")[]
+function M:modes(modes)
+  ---@param t KeyTable[]
+  return function(t)
+    for _, mapping in ipairs(t) do
+      vim.keymap.set(modes, mapping.lhs, mapping.rhs)
+    end
+    return self
   end
 end
 

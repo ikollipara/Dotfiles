@@ -16,8 +16,8 @@ return {
   config = true,
   keys = {
     { "<leader>j", function() harpoon("mark").add_file() end },
-    { "<C-m>",     function() harpoon("ui").nav_next() end },
-    { "<C-o>",     function() harpoon("ui").nav_prev() end },
+    { "<C-j>",     function() harpoon("ui").nav_next() end },
+    { "<C-k>",     function() harpoon("ui").nav_prev() end },
     { "<C-h>",     function() harpoon("ui").toggle_quick_menu() end }
   }
 }
