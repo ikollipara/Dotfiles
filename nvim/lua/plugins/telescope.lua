@@ -10,7 +10,11 @@ return {
   cmd = "Telescope",
   keys = {
     { "<leader><space>", "<cmd>Telescope find_files<cr>" },
+    { "<leader>b",       "<cmd>Telescope buffers<cr>" },
   },
-  dependencies = { 'nvim-lua/plenary.nvim' },
-  config = true
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    "nvim-telescope/telescope-symbols.nvim",
+  },
+  config = true,
 }

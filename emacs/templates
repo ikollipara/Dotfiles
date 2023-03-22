@@ -1,0 +1,3 @@
+emacs-lisp-mode
+
+(use "(use-package " p n> ":straight t" n> q ")")

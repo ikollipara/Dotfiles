@@ -6,8 +6,8 @@
 -- Neovim Configuration
 --]]
 require("core.initializer")
-    :opts {
-      mapleader = " ",
-      loadNetrw = false
-    }
-    :begin()
+	:opts({
+		mapleader = " ",
+		loadNetrw = false,
+	})
+	:begin()
