@@ -1,6 +1,13 @@
-;; init.el
+;;; init.el --- Personal Emacs Config
+;;; Commentary:
 ;; Ian Kollipara
 ;; 2023.03.21
+;; This is my personal Emacs Configuration.
+;; I am rebuilding it from the ground up to be used again as
+;; my primary editor.  I stopped using it for a while, but
+;; I missed the power of Emacs, and so I am rebuilding this
+;; configuration.  Expect changes!
+;;; Code:
 
 (defvar bootstrap-version)
 (let ((bootstrap-file
@@ -15,114 +22,31 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 
+(straight-use-package 'no-littering)
+(require 'no-littering)
+(setq auto-save-file-name-transforms `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
+
 (straight-use-package 'use-package)
 
-(use-package no-littering
-        :straight t
-	:config (setq auto-save-file-name-transforms `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
+(add-to-list 'load-path "~/.config/emacs/lisp/")
+(require 'base)
+(require 'ik-evil)
+(require 'minad)
+(require 'ui)
+(require 'lsp-config)
+(require 'academia)
+(require 'editor)
 
-(use-package doom-themes
-  :straight t
-  :config (load-theme 'doom-palenight t))
-
-(use-package ace-window
-  :straight t
-  :bind ("M-o" . ace-window)
-  :config (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
-
-(use-package avy
-  :straight t
-  :bind ("C-s" . avy-goto-char))
-
-(use-package vertico
-  :straight t
-  :init (vertico-mode))
-
-(use-package marginalia
-  :straight t
-  ;; Either bind `marginalia-cycle' globally or only in the minibuffer
-  :bind (("M-A" . marginalia-cycle)
-         :map minibuffer-local-map
-         ("M-A" . marginalia-cycle))
-
-  ;; The :init configuration is always executed (Not lazy!)
-  :init
-
-  ;; Must be in the :init section of use-package such that the mode gets
-  ;; enabled right away. Note that this forces loading the package.
-  (marginalia-mode))
-
-(use-package consult
-  :straight t
-  :bind (("C-x b" . consult-buffer)
-	 ("M-g g" . consult-goto-line)
-	 ("M-g M-g" . consult-goto-line)
-	 ("M-g m" . consult-mark)
-	 ("M-s d" . consult-find)
-	 ("M-s b" . consult-locate)
-	 ("M-s g" . consult-grep)
-	 ("M-s l" . consult-line)
-	 ("M-s L" . consult-line-multi)))
-
-
-;; Optionally use the `orderless' completion style.
-(use-package orderless
-  :straight t
-  :init
-  ;; Configure a custom style dispatcher (see the Consult wiki)
-  ;; (setq orderless-style-dispatchers '(+orderless-consult-dispatch orderless-affix-dispatch)
-  ;;       orderless-component-separator #'orderless-escapable-split-on-space)
-  (setq completion-styles '(orderless basic)
-        completion-category-defaults nil
-        completion-category-overrides '((file (styles partial-completion)))))
-
-(use-package all-the-icons
-  :straight t)
-
-(use-package all-the-icons-completion
-  :straight t
-  :hook ((marginalia-mode . all-the-icons-completion-marginalia-setup))
-  :init (all-the-icons-completion-mode))
-
-(set-face-attribute 'default nil :font "Fira Code Retina" :height 150)
-(global-display-line-numbers-mode 1)
-(set-frame-parameter (selected-frame) 'alpha '(90 . 90))
-(menu-bar-mode -1)
-(tab-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-
-(use-package doom-modeline
-  :straight t
-  :init (doom-modeline-mode 1))
-
-(use-package smartparens
-  :straight t
-  :hook ((emacs-lisp . smartparens-strict-mode)))
-
-(use-package tempel
-  :straight t
-  :bind (("C-c c c" . tempel-complete)
-	 ("C-c t l" . tempel-insert))
-  :init
-  (defun tempel-setup-capf ()
-    (setq-local completion-at-point-functions
-		(cons #'tempel-expand completion-at-point-functions)))
-
-  (add-hook 'prog-mode-hook 'tempel-setup-capf)
-  (add-hook 'text-mode-hook 'tempel-setup-capf)
-  :config
-  (tempel-key "C-c t u" use emacs-lisp-mode-map))
-
-(use-package company
-  :straight t
-  :hook (after-init . global-company-mode))
-
-(use-package lsp-mode
-  :straight t
-  :init (setq lsp-keymap-prefix "C-c l")
-  :commands lsp)
-
-(use-package lsp-ui
-  :straight t
-  :commands lsp-ui-mode)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(warning-suppress-log-types '((comp)))
+ '(warning-suppress-types '((lsp-mode))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

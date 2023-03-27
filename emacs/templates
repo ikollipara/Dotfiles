@@ -1,3 +1,16 @@
 emacs-lisp-mode
 
-(use "(use-package " p n> ":straight t" n> q ")")
+(use "(use-package " p n>
+        ":straight t"  n>
+	q
+	")")
+(header ";;; " (s filename) ".el --- " p n
+        ";;; Commentary:" n
+	";; " p n
+	";;" n
+	";;; Code:" n
+	n
+	q n
+	n
+	(string-join `("(provide '" ,filename ")")) n
+	(string-join `(";;; " ,filename ".el ends here")))
