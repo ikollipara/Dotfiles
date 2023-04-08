@@ -26,6 +26,7 @@
   :after general
   :bind (([remap switch-to-buffer] . consult-buffer)
 	 ([remap goto-line] . consult-line)
+	 ([remap project-switch-to-buffer] . consult-project-buffer)
 	 ("M-/" . consult-line-multi))
   :general
   (ik/leader
@@ -37,6 +38,11 @@
   :straight t
   :after (consult flycheck)
   :bind ([remap flycheck-list-errors] . consult-flycheck))
+
+(use-package jinx
+  :straight (:host github :repo "minad/jinx")
+  :hook (emacs-startup . global-jinx-mode)
+  :bind ([remap ispell-word] . jinx-correct))
 
 (use-package orderless
   :straight t

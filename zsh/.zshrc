@@ -12,3 +12,5 @@ source "$NVM_DIR/nvm.sh"
 
 # Created by `pipx` on 2023-03-13 19:02:48
 export PATH="$PATH:/home/ikollipara/.local/bin"
+
+[ -f "/home/ikollipara/.ghcup/env" ] && source "/home/ikollipara/.ghcup/env" # ghcup-env

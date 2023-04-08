@@ -24,6 +24,7 @@
   :config (project-x-mode 1))
 
 (electric-pair-mode 1)
+(electric-indent-mode 1)
 
 (provide 'editor)
 ;;; editor.el ends here
