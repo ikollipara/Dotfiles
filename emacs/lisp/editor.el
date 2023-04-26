@@ -10,10 +10,10 @@
   :straight t
   :after general
   :hook (vterm-mode . (lambda () (display-line-numbers-mode 0)))
-  :bind ("C-c o t" . vterm)
   :general
   (ik/leader
-    "o t" 'vterm))
+    "o t" 'vterm-other-window
+    "o T" 'vterm))
 
 (use-package magit
   :straight t)
@@ -22,6 +22,12 @@
   :straight (:host github :repo "karthink/project-x")
   :after project
   :config (project-x-mode 1))
+
+(use-package treemacs
+  :straight t
+  :general
+  (ik/leader
+    "p t" 'treemacs))
 
 (electric-pair-mode 1)
 (electric-indent-mode 1)
