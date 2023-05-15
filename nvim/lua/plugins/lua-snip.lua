@@ -1,10 +1,10 @@
---[[
--- luasnip.lua
+---------------------------
+-- lua-snip.lua
 -- Ian Kollipara
--- 2023.03.10
+-- 2023.05.15
 --
 -- LuaSnip Configuration
---]]
+---------------------------
 
 return {
   "L3MON4D3/LuaSnip",

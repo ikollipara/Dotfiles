@@ -1,13 +1,15 @@
---[[
+-------------------------------------
 -- lazygit.lua
 -- Ian Kollipara
--- 2023.03.14
+-- 2023.05.15
 --
--- lazygit integration
---]]
+-- LazyGit Integration Configuration
+-------------------------------------
+
 return {
-  "kdheepak/lazygit.nvim",
-  keys = {
-    { "<leader>gg", "<cmd>LazyGit<cr>" }
-  }
+    "kdheepak/lazygit.nvim",
+    keys = {
+        { "<leader>gg", ":LazyGit<cr>" },
+        {"<leader>gf", ":LazyGitFilterCurrentFile<cr>" }
+    }
 }

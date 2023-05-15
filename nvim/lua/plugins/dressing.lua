@@ -1,10 +1,11 @@
---[[
+--------------------------
 -- dressing.lua
 -- Ian Kollipara
--- 2023.03.10
+-- 2023.05.15
 --
 -- Dressing Configuration
---]]
+--------------------------
+
 return {
   "stevearc/dressing.nvim",
   lazy = true,

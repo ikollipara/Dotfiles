@@ -5,12 +5,13 @@
 --
 -- Trouble Configuration
 --]]
+--
 return {
   "folke/trouble.nvim",
   dependecies = { "nvim-tree/nvim-web-devicons" },
   config = true,
   keys = {
-    { "<leader>dd", "<cmd>Trouble document_diagnostics<cr>" },
-    { "<leader>dw", "<cmd>Trouble workspace_diagnostics<cr>" }
+    { "<leader>cdd", "<cmd>Trouble document_diagnostics<cr>" },
+    { "<leader>cdw", "<cmd>Trouble workspace_diagnostics<cr>" }
   }
 }

@@ -1,10 +1,11 @@
---[[
+-------------------------------
 -- typescriptreact.lua
 -- Ian Kollipara
--- 2023.03.27
+-- 2023.05.15
 --
--- Typescript React Settings
---]]
+-- TSX Filetype Plugin
+-------------------------------
+
 local opt = vim.opt
 
 opt.tabstop = 2

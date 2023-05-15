@@ -1,10 +1,11 @@
---[[
+----------------------------
 -- git-signs.lua
 -- Ian Kollipara
--- 2023.03.22
+-- 2023.05.15
 --
--- Git Signs
---]]
+-- Git Signs Configuration
+----------------------------
+
 return {
   "lewis6991/gitsigns.nvim",
   event = "BufEnter",

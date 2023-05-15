@@ -1,10 +1,11 @@
---[[
--- go.lua
+-------------------------------
+-- python.lua
 -- Ian Kollipara
--- 2023.03.15
+-- 2023.05.15
 --
--- Go Config
---]]
+-- Python Filetype Plugin
+-------------------------------
+
 local opt = vim.opt
 
 opt.tabstop = 4

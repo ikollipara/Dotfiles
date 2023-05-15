@@ -1,7 +1,7 @@
 --[[
 -- git-blame.lua
 -- Ian Kollipara
--- 2023.03.22
+-- 2023.05.15
 --
 -- Git Blame
 --]]

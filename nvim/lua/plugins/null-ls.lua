@@ -1,23 +1,48 @@
---[[
+---------------------------
 -- null-ls.lua
 -- Ian Kollipara
--- 2023.03.17
+-- 2023.05.15
 --
 -- null-ls Configuration
---]]
+---------------------------
+
 return {
-  "jose-elias-alvarez/null-ls.nvim",
-  event = { "BufReadPre", "BufNewFile" },
-  dependencies = { "mason.nvim" },
-  opts = function()
-    local nls = require("null-ls")
-    return {
-      root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
-      sources = {
-        nls.builtins.formatting.stylua,
-        nls.builtins.diagnostics.flake8,
-        nls.builtins.formatting.prettierd,
-      },
-    }
-  end,
+    "jose-elias-alvarez/null-ls.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = { "williamboman/mason.nvim" },
+    opts = function()
+        local nls = require("null-ls")
+
+        return {
+            root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
+            sources = {
+                -- Formatters
+                nls.builtins.formatting.black,
+                nls.builtins.formatting.codespell,
+                nls.builtins.formatting.elm_format,
+                nls.builtins.formatting.eslint,
+                nls.builtins.formatting.isort,
+                nls.builtins.formatting.markdown_lint,
+                nls.builtins.formatting.markdown_toc,
+                nls.builtins.formatting.mdformat,
+                nls.builtins.formatting.prettier,
+                nls.builtins.formatting.stylua,
+
+                -- Code Actions
+                nls.builtins.code_actions.eslint,
+                nls.builtins.code_actions.proselint,
+
+                -- Completion
+                nls.builtins.completion.spell,
+
+                -- Diagnostics
+                nls.builtins.diagnostics.flake8,
+                nls.builtins.diagnostics.luacheck,
+                nls.builtins.diagnostics.mypy,
+                nls.builtins.diagnostics.semgrep,
+                nls.builtins.diagnostics.tsc,
+
+            }
+        }
+    end
 }

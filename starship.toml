@@ -1,7 +1,6 @@
 # Sets user-defined palette
-palette = "catppuccin_frappe"
 
-format = """┌─$username$git_branch$git_status$git_state$fill $all└─$directory$character"""
+format = """┌─$username$git_branch$git_status$git_state$fill $all└─ $directory$character"""
 
 [fill]
 symbol = '─'
@@ -24,7 +23,6 @@ error_symbol = "[❯](red)"
 [directory]
 truncation_length = 4
 # Catppuccin 'lavender'
-style = "bold lavender"
 
 # palette tables should be last in the config ⚓️
 [palettes.catppuccin_macchiato]
