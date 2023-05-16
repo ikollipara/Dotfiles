@@ -11,6 +11,8 @@ local M = {}
 function M.setup()
     local ks = vim.keymap.set
 
+    ks({ "n" }, "<leader>bd", ":bd<cr>")
+    ks({ "n" }, "<leader>wd", "<C-w>q")
     ks({ "n" }, "<leader>ws", ":vsplit<cr>")
     ks({ "n" }, "<leader>wS", ":split<cr>")
     ks({ "n", "i", "v" }, "<A-h>", "<C-w>h")
