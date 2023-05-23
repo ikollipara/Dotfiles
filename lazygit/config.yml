@@ -1,7 +1,7 @@
 customCommands:
   - key: "C"
-    command: "git cz c"
-    description: "commit with commitizen"
+    command: "better-commits"
+    description: "commit with better-commits"
     context: "files"
-    loadingText: "opening commitizen commit tool"
+    loadingText: "opening better-commits commit tool"
     subprocess: true
