@@ -8,15 +8,13 @@
 
 local M = {}
 
-function M.setup() 
+function M.setup()
     vim.g.mapleader = " "
     vim.opt.number = true
     vim.opt.signcolumn = "yes"
     vim.opt.incsearch = true
     vim.opt.termguicolors = true
     vim.opt.wrap = true
-    vim.keymap.set({"n", "i", "v"}, "<C-g>", "<ESC>")
 end
 
 return M
-

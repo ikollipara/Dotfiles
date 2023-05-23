@@ -9,7 +9,6 @@
 return {
     "kdheepak/lazygit.nvim",
     keys = {
-        { "<leader>gg", ":LazyGit<cr>" },
-        {"<leader>gf", ":LazyGitFilterCurrentFile<cr>" }
+        { "<leader>g", ":LazyGit<cr>", desc = "Open LazyGit" },
     }
 }

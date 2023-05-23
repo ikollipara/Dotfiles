@@ -6,10 +6,12 @@
 -- Neovim Configuration
 --------------------------
 
+local netrw = require("core.netrw")
 local pkg = require("core.pkg-manager")
 local settings = require("core.settings")
 local keymaps = require("core.keymaps")
 
+netrw.setup()
 settings.setup()
 pkg.setup("plugins")
 keymaps.setup()

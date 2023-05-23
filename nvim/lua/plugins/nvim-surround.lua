@@ -5,15 +5,14 @@
 --
 -- nvim-surround Configuration
 --]]
-
 return {
-  "kylechui/nvim-surround",
-  keys = {
-    { "ys" },
-    { "S", mode = "v" },
-    { "ds" },
-  },
-  opts = {
-    fast_wrap = {}
-  }
+    "kylechui/nvim-surround",
+    keys = {
+        { "ys", desc = "+s" },
+        { "S",  mode = "v", desc = "+s" },
+        { "ds", desc = "-s" },
+    },
+    opts = {
+        fast_wrap = {}
+    }
 }

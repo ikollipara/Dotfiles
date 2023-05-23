@@ -19,7 +19,7 @@ return {
         {
             "williamboman/mason.nvim",
             config = true,
-            keys = { { "<leader>cm", "<cmd>Mason<cr>" } }
+            keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Open Mason" } }
         },
         {
             "hrsh7th/nvim-cmp",
@@ -76,6 +76,8 @@ return {
             cssls = {},
             gopls = {},
             astro = {},
+            elmls = {},
+            vuels = {},
         }
     },
     config = function(_, opts)
@@ -87,17 +89,17 @@ return {
 
         vim.api.nvim_create_autocmd("LspAttach", {
             callback = function()
-                vim.keymap.set("n", "<leader>cli", "<cmd>LspInfo<cr>")
-                vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<cr>")
-                vim.keymap.set("n", "K", vim.lsp.buf.hover)
-                vim.keymap.set("n", "gi", vim.lsp.buf.implementation)
-                vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<cr>")
-                vim.keymap.set("n", "gds", vim.lsp.buf.document_symbol)
-                vim.keymap.set("n", "<leader>clr", vim.lsp.buf.rename)
-                vim.keymap.set("n", "<leader>cla", vim.lsp.buf.code_action)
-                vim.keymap.set("n", "<leader>cf", vim.lsp.buf.format)
-                vim.keymap.set("n", "gK", vim.lsp.buf.signature_help)
-                vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help)
+                vim.keymap.set("n", "<leader>cli", "<cmd>LspInfo<cr>", { desc = "See LSP Info" })
+                vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<cr>", { desc = "Go to Definition" })
+                vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Show Signature" })
+                vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Go to Implementation" })
+                vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<cr>", { desc = "Go to References" })
+                vim.keymap.set("n", "gds", vim.lsp.buf.document_symbol, { desc = "Go to Symbol" })
+                vim.keymap.set("n", "<leader>clr", vim.lsp.buf.rename, { desc = "Rename" })
+                vim.keymap.set("n", "<leader>cla", vim.lsp.buf.code_action, { desc = "Execute Code Action" })
+                vim.keymap.set("n", "<leader>cf", vim.lsp.buf.format, { desc = "Format Buffer" })
+                vim.keymap.set("n", "gK", vim.lsp.buf.signature_help, { desc = "Go to Signature" })
+                vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, { desc = "See Signature" })
             end
         })
         local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())

@@ -22,10 +22,13 @@ return {
                 nls.builtins.formatting.elm_format,
                 nls.builtins.formatting.eslint,
                 nls.builtins.formatting.isort,
-                nls.builtins.formatting.markdown_lint,
+                nls.builtins.formatting.markdownlint,
                 nls.builtins.formatting.markdown_toc,
                 nls.builtins.formatting.mdformat,
-                nls.builtins.formatting.prettier,
+                nls.builtins.formatting.prettier.with({
+                    extra_filetypes = { "typescriptreact" },
+                    timeout = 10000,
+                }),
                 nls.builtins.formatting.stylua,
 
                 -- Code Actions

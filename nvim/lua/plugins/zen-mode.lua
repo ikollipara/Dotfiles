@@ -8,17 +8,17 @@
 return {
     "folke/zen-mode.nvim",
     dependencies = {
-        { 
+        {
             "folke/twilight.nvim",
-             opts = {
-                 dimming = {
-                     alpha = 0.3
-                 }
-             }
-         }
+            opts = {
+                dimming = {
+                    alpha = 0.3
+                }
+            }
+        }
     },
     keys = {
-        { "<leader>tz", ":ZenMode<cr>" }
+        { "<leader>tz", ":ZenMode<cr>", desc = "Toggle Zen Mode" }
     },
     config = true
 }

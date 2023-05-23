@@ -9,8 +9,8 @@
 return {
     "Th3Whit3Wolf/onebuddy",
     dependencies = { "tjdevries/colorbuddy.nvim" },
-    config = function() 
+    config = function()
         vim.cmd("colorscheme onebuddy")
     end,
-    priority=1000,
+    priority = 1000,
 }

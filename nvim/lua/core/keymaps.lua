@@ -1,20 +1,16 @@
-----------------------
+--------------------
 -- keymaps.lua
 -- Ian Kollipara
--- 2023.05.15
+-- 2023.05.18
 --
--- Used Keymaps
-----------------------
+-- Keymapings
+--------------------
 
 local M = {}
 
-function M.setup()
-    local ks = vim.keymap.set
+local ks = vim.keymap.set
 
-    ks({ "n" }, "<leader>bd", ":bd<cr>")
-    ks({ "n" }, "<leader>wd", "<C-w>q")
-    ks({ "n" }, "<leader>ws", ":vsplit<cr>")
-    ks({ "n" }, "<leader>wS", ":split<cr>")
+function M.setup()
     ks({ "n", "i", "v" }, "<A-h>", "<C-w>h")
     ks({ "n", "i", "v" }, "<A-j>", "<C-w>j")
     ks({ "n", "i", "v" }, "<A-k>", "<C-w>k")
