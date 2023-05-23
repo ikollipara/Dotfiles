@@ -33,7 +33,11 @@
   (global-display-line-numbers-mode 1)
   (set-fringe-mode 10)
   :bind
-  ("C-x C-b" . ibuffer))
+  ("C-x C-b" . ibuffer)
+  :general
+  (ik/leader
+    "f f" 'find-file
+    "SPC" 'find-file))
 
 (use-package no-littering
   :straight t
@@ -166,7 +170,7 @@
   (obsidian-specify-path "~/Dropbox/Notes")
   (global-obsidian-mode t)
   :custom
-  (obsidian-capture-directory "Fleeting Notes")
+  (obsidian-capture-directory "+Inbox")
   :bind
   (("C-c n c" . obsidian-capture)
    :map obsidian-mode-map
@@ -195,7 +199,7 @@
   :after obsidian
   :config
   (setq citar-bibliography "~/Documents/References.bib"
-	citar-notes-path "~/Dropbox/Notes/Literature Notes")
+	citar-notes-path "~/Dropbox/Notes/Sources/Literature Notes")
   (defvar citar-indicator-files-icons
     (citar-indicator-create
      :symbol (all-the-icons-faicon
@@ -244,16 +248,16 @@
   (defun ik/start-literature-review (key &optional entry)
     (interactive (list (citar-select-ref)))
     (let* ((entry (or entry (citar-get-entry key)))
-	   (filepath (concat "~/Dropbox/Notes/Literature Notes/@" key ".md"))
+	   (filepath (concat "~/Dropbox/Notes/Sources/Literature Notes/@" key ".md"))
 	   (buffer (find-file filepath)))
       (with-current-buffer buffer
 	(when (or (not (f-exists-p filepath)) (f-empty-p filepath))
 	  (message "Here")
 	  (insert
-	   (concat "---\ntitle: "
+	   (concat "---\ntype:paper\ntitle: "
 		   (or (cdr(assoc "title" entry)) "") "\nauthors: "
 		   (or (cdr(assoc "author" entry)) "") "\nyear: "
-		   (or (cdr(assoc "date" entry)) "") "\n---")))
+		   (or (cdr(assoc "date" entry)) "") "\ntags: []\n---")))
 	(split-window-horizontally)
 	(citar-open-files key)))))
 
