@@ -42,10 +42,8 @@ return {
                 nls.builtins.diagnostics.flake8,
                 nls.builtins.diagnostics.luacheck,
                 nls.builtins.diagnostics.mypy,
-                nls.builtins.diagnostics.semgrep,
                 nls.builtins.diagnostics.tsc,
-
-            }
+            },
         }
-    end
+    end,
 }
