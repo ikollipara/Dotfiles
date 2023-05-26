@@ -9,12 +9,14 @@
 local M = {}
 
 function M.setup()
-    vim.g.mapleader = " "
-    vim.opt.number = true
-    vim.opt.signcolumn = "yes"
-    vim.opt.incsearch = true
-    vim.opt.termguicolors = true
-    vim.opt.wrap = true
+	vim.g.mapleader = " "
+	vim.opt.number = true
+	vim.opt.signcolumn = "yes"
+	vim.opt.incsearch = true
+	vim.opt.termguicolors = true
+	vim.opt.wrap = true
+	vim.opt.spell = true
+	vim.opt.spelllang = { "en_us" }
 end
 
 return M

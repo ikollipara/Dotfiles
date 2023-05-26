@@ -15,9 +15,18 @@ return {
         wk.setup({
             ["<space>"] = "SPC",
             ["<cr>"] = "RET",
-            ["<tab>"] = "TAB",
+            ["<Tab>"] = "TAB",
         })
         wk.register({
+            ["<leader><Tab>"] = {
+                name = "+workspace",
+            },
+            ["<leader>f"] = {
+                name = "+telescope",
+            },
+            ["<leader>h"] = {
+                name = "+hop",
+            },
             ["<leader>p"] = {
                 name = "+project",
             },
@@ -42,6 +51,9 @@ return {
                         vim.cmd("only")
                     end,
                     "Open NvimTree as a Buffer",
+                },
+                ["t"] = {
+                    name = "+terminal",
                 },
             },
             ["<leader>c"] = {
