@@ -1,18 +1,14 @@
---[[
--- nvim-surround.lua
--- Ian Kollipara
--- 2023.05.15
---
--- nvim-surround Configuration
---]]
 return {
     "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    config = function()
+        require("nvim-surround").setup({
+            -- Configuration here, or leave empty to use defaults
+        })
+    end,
     keys = {
-        { "ys", desc = "+s" },
-        { "S",  mode = "v", desc = "+s" },
-        { "ds", desc = "-s" },
-    },
-    opts = {
-        fast_wrap = {}
+        { "ys" },
+        { "ds" },
+        { "cs" },
     }
 }

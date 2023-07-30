@@ -1,3 +1,21 @@
 {
-    "workspace.checkThirdParty": false
+    "workspace.library": [
+        "/home/ian/.config/nvim",
+        "/home/ian/.local/share/nvim/lazy/lazy.nvim",
+        "/home/ian/.local/share/nvim/lazy/mason.nvim",
+        "/home/ian/.local/share/nvim/lazy/mason-lspconfig.nvim",
+        "/home/ian/.local/share/nvim/lazy/neoconf.nvim",
+        "/home/ian/.local/share/nvim/lazy/nvim-lspconfig",
+        "/home/ian/.local/share/nvim/lazy/plenary.nvim",
+        "/home/ian/.local/share/nvim/lazy/todo-comments.nvim",
+        "/home/ian/.local/share/nvim/lazy/nvim-web-devicons",
+        "/home/ian/.local/share/nvim/lazy/trouble.nvim",
+        "/home/ian/.local/share/nvim/lazy/twilight.nvim",
+        "/home/ian/.local/share/nvim/lazy/tokyonight.nvim",
+        "/usr/share/nvim/runtime",
+        "/usr/share/nvim/runtime/pack/dist/opt/matchit",
+        "/home/ian/.config/nvim/after",
+        "/home/ian/.local/state/nvim/lazy/readme",
+        "${3rd}/luassert/library"
+    ]
 }

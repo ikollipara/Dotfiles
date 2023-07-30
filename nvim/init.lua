@@ -1,17 +1,8 @@
---------------------------
--- init.lua
--- Ian Kollipara
--- 2023.05.15
---
--- Neovim Configuration
---------------------------
+local lazy = require("core.lazy")
 
-local netrw = require("core.netrw")
-local pkg = require("core.pkg-manager")
-local settings = require("core.settings")
-local keymaps = require("core.keymaps")
+local config = require("core.set")
 
-netrw.setup()
-settings.setup()
-pkg.setup("plugins")
-keymaps.setup()
+config.setup()
+
+lazy.setup("plugins")
+vim.cmd [[colorscheme tokyonight]]

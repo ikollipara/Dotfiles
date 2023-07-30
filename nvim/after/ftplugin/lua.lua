@@ -1,15 +1,7 @@
-------------------------------
--- lua.lua
--- Ian Kollipara
--- 2023.05.15
---
--- Lua Filetype Configuration
-------------------------------
-
-local opt = vim.opt
-
-opt.tabstop = 4
-opt.softtabstop = 4
-opt.shiftwidth = 4
-opt.expandtab = true
-opt.smartindent = true
+vim.o.number = true
+vim.o.expandtab = true
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
+vim.o.softtabstop = 4
+vim.o.smarttab = true
+vim.o.smartindent = true

@@ -1,122 +1,69 @@
---[[
--- lspconfig.lua
--- Ian Kollipara
--- 2023.03.10
---
--- LSPConfig Configuration
---]]
 return {
-	"neovim/nvim-lspconfig",
-	event = { "BufReadPre", "BufNewFile" },
-	dependencies = {
-		{
-			"folke/neodev.nvim",
-			opts = {
-				experimental = { pathStrict = true },
-			},
-			ft = "lua",
-		},
-		{
-			"williamboman/mason.nvim",
-			config = true,
-			keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Open Mason" } },
-		},
-		{
-			"hrsh7th/nvim-cmp",
-			version = false,
-			event = "InsertEnter",
-			dependencies = {
-				"hrsh7th/cmp-nvim-lsp",
-				"hrsh7th/cmp-buffer",
-				"hrsh7th/cmp-path",
-				"saadparwaiz1/cmp_luasnip",
-				"f3fora/cmp-spell",
-			},
-			opts = function()
-				local cmp = require("cmp")
-				return {
-					completion = {
-						completeopt = "menu,menuone,noinsert",
-					},
-					snippet = {
-						expand = function(args)
-							require("luasnip").lsp_expand(args.body)
-						end,
-					},
-					mapping = cmp.mapping.preset.insert({
-						["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-						["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-						["<C-b>"] = cmp.mapping.scroll_docs(-4),
-						["<C-f>"] = cmp.mapping.scroll_docs(4),
-						["<C-Space>"] = cmp.mapping.complete(),
-						["<C-e>"] = cmp.mapping.abort(),
-						["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-						["<S-CR>"] = cmp.mapping.confirm({
-							behavior = cmp.ConfirmBehavior.Replace,
-							select = true,
-						}), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-					}),
-					sources = cmp.config.sources({
-						{ name = "nvim_lsp" },
-						{ name = "luasnip" },
-						{ name = "buffer" },
-						{ name = "path" },
-						{
-							name = "spell",
-							enable_in_context = function()
-								return require("cmp.config.context").in_treesitter_capture("spell")
-							end,
-						},
-					}),
-				}
-			end,
-		},
-	},
-	opts = {
-		servers = {
-			lua_ls = {},
-			pyright = {},
-			texlab = {},
-			intelephense = {},
-			tsserver = {},
-			html = {},
-			cssls = {},
-			gopls = {},
-			astro = {},
-			elmls = {},
-			vuels = {},
-		},
-	},
-	config = function(_, opts)
-		vim.api.nvim_create_autocmd("BufWrite", {
-			callback = function()
-				vim.lsp.buf.format()
-			end,
-		})
+    "neovim/nvim-lspconfig",
+    dependencies = { "folke/neoconf.nvim", { "williamboman/mason-lspconfig.nvim", config = true } },
+    init = function()
+        local ok, wf = pcall(require, "vim.lsp._watchfiles")
+        if ok then
+            wf._watchfunc = function() end
+        end
 
-		vim.api.nvim_create_autocmd("LspAttach", {
-			callback = function()
-				vim.keymap.set("n", "<leader>cli", "<cmd>LspInfo<cr>", { desc = "See LSP Info" })
-				vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<cr>", { desc = "Go to Definition" })
-				vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Show Signature" })
-				vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Go to Implementation" })
-				vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<cr>", { desc = "Go to References" })
-				vim.keymap.set("n", "gds", vim.lsp.buf.document_symbol, { desc = "Go to Symbol" })
-				vim.keymap.set("n", "<leader>clr", vim.lsp.buf.rename, { desc = "Rename" })
-				vim.keymap.set("n", "<leader>cla", vim.lsp.buf.code_action, { desc = "Execute Code Action" })
-				vim.keymap.set("n", "<leader>cf", vim.lsp.buf.format, { desc = "Format Buffer" })
-				vim.keymap.set("n", "gK", vim.lsp.buf.signature_help, { desc = "Go to Signature" })
-				vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, { desc = "See Signature" })
-			end,
-		})
-		local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-		local function setup(server)
-			local serverOpts =
-				vim.tbl_deep_extend("force", { capabilities = vim.deepcopy(capabilities) }, opts.servers[server] or {})
-			require("lspconfig")[server].setup(serverOpts)
-		end
-		for server, _ in pairs(opts.servers) do
-			setup(server)
-		end
-	end,
+        vim.api.nvim_create_autocmd('LspAttach', {
+            group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+            callback = function(ev)
+                -- Enable completion triggered by <c-x><c-o>
+                vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
+                -- Buffer local mappings.
+                -- See `:help vim.lsp.*` for documentation on any of the below functions
+                local opts = { buffer = ev.buf }
+                vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+                vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+                vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+                vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+                vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+                vim.keymap.set('n', '<leader>lwa', vim.lsp.buf.add_workspace_folder, opts)
+                vim.keymap.set('n', '<leader>lwr', vim.lsp.buf.remove_workspace_folder, opts)
+                vim.keymap.set('n', '<leader>lwl', function()
+                    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+                end, opts)
+                vim.keymap.set('n', '<leader>lD', vim.lsp.buf.type_definition, opts)
+                vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, opts)
+                vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
+                vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+                vim.keymap.set('n', '<leader>cf', function()
+                    vim.lsp.buf.format { async = true }
+                end, opts)
+            end,
+        })
+    end,
+    event = { "BufReadPre *.{lua,py,html,css,js,ts,json,yaml}", "BufNewFile *.{lua,py,html,css,js,ts,json,yaml}" },
+    opts = {
+        servers = {
+            lua_ls = {
+                settings = {
+                    Lua = {
+                        diagnostics = {
+                            globals = { "vim" }
+                        },
+                        workspace = {
+                            -- Make the server aware of Neovim runtime files
+                            library = vim.api.nvim_get_runtime_file("", true),
+                        },
+                        telemetry = {
+                            enable = false
+                        }
+                    }
+                }
+            },
+            pyright = {},
+            html = {},
+            tailwindcss = {}
+        },
+    },
+    config = function(_, opts)
+        local servers = opts.servers
+        for server, server_opts in pairs(servers) do
+            require("lspconfig")[server].setup(server_opts)
+        end
+    end
 }

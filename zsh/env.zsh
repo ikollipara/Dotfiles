@@ -1,4 +1,4 @@
-export EDITOR="nano"
+export EDITOR="nvim"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_STATE_HOME="$HOME/.local/state"
@@ -13,4 +13,6 @@ export CABAL_DIR="$XDG_DATA_HOME/cabal/"
 export GHCUP_USE_XDG_DIRS=true
 export GOPATH="$XDG_DATA_HOME/go"
 export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
-export PATH="$PATH:/home/ikollipara/.local/share/coursier/bin:$HOME/Documents/Scripts:$PYENV_ROOT/bin:$HOME/.local/bin:$HOME/.local/share/npm/bin:$HOME/go/bin:$DENO_INSTALL/bin"
+export DOTNET_ROOT=$HOME/.local/share/dotnet
+export RYE_HOME="$HOME/.local/share/rye"
+export PATH="$PATH:/home/ikollipara/.local/share/coursier/bin:$HOME/Documents/Scripts:$PYENV_ROOT/bin:$HOME/.local/bin:$HOME/.local/share/npm/bin:$HOME/go/bin:$DENO_INSTALL/bin:$DOTNET_ROOT:$DOTNET_ROOT/tools"
