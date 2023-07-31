@@ -1,8 +1,8 @@
 return {
-    "williamboman/mason.nvim",
-    cmd = "Mason",
-    opts = {},
-    keys = {
-        { "<leader>sm", ":Mason<cr>", desc = "Open Mason" }
-    }
+	"williamboman/mason.nvim",
+	cmd = "Mason",
+	opts = {},
+	keys = {
+		{ "<leader>om", ":Mason<cr>", desc = "Open Mason" },
+	},
 }

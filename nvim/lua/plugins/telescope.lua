@@ -27,6 +27,6 @@ return {
 	keys = {
 		{ "<leader><space>", ":Telescope find_files<cr>", desc = "Find Files" },
 		{ "<leader>fb", ":Telescope buffers<cr>", desc = "Find Buffers" },
-		{ "<leader>ll", ":Telescope treesitter<cr>", desc = "List Symbols" },
+		{ "<leader>ft", ":Telescope treesitter<cr>", desc = "List Symbols" },
 	},
 }
