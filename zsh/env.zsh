@@ -15,4 +15,4 @@ export GOPATH="$XDG_DATA_HOME/go"
 export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
 export DOTNET_ROOT=$HOME/.local/share/dotnet
 export RYE_HOME="$HOME/.local/share/rye"
-export PATH="$PATH:/home/ikollipara/.local/share/coursier/bin:$HOME/Documents/Scripts:$PYENV_ROOT/bin:$HOME/.local/bin:$HOME/.local/share/npm/bin:$HOME/go/bin:$DENO_INSTALL/bin:$DOTNET_ROOT:$DOTNET_ROOT/tools"
+export PATH="$PATH:/home/ikollipara/.local/share/coursier/bin:$HOME/Documents/Scripts:$PYENV_ROOT/bin:$HOME/.local/bin:$HOME/.local/share/npm/bin:$HOME/go/bin:$DENO_INSTALL/bin:$DOTNET_ROOT:$DOTNET_ROOT/tools:$HOME/.config/tmux/plugins/t-smart-tmux-session-manager/bin:$PATH"

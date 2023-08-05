@@ -2,17 +2,9 @@ return {
 	"neovim/nvim-lspconfig",
 	dependencies = { "folke/neoconf.nvim", { "williamboman/mason-lspconfig.nvim", config = true } },
 	init = function()
-		local ok, wf = pcall(require, "vim.lsp._watchfiles")
-		if ok then
-			wf._watchfunc = function() end
-		end
-
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 			callback = function(ev)
-				-- Enable completion triggered by <c-x><c-o>
-				vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
-
 				-- Buffer local mappings.
 				-- See `:help vim.lsp.*` for documentation on any of the below functions
 				local opts = { buffer = ev.buf }
@@ -27,13 +19,16 @@ return {
 					print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 				end, opts)
 				vim.keymap.set("n", "<leader>cD", vim.lsp.buf.type_definition, opts)
-				vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, opts)
+				vim.keymap.set("n", "<leader>ccr", vim.lsp.buf.rename, opts)
 				vim.keymap.set({ "n", "v" }, "<leader>cca", vim.lsp.buf.code_action, opts)
 				vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
 			end,
 		})
 	end,
-	event = { "BufReadPre *.{lua,py,html,css,js,ts,json,yaml}", "BufNewFile *.{lua,py,html,css,js,ts,json,yaml}" },
+	event = {
+		"BufReadPre *.{lua,py,html,css,js,ts,json,yaml,astro}",
+		"BufNewFile *.{lua,py,html,css,js,ts,json,yaml,astro}",
+	},
 	opts = {
 		servers = {
 			lua_ls = {
@@ -52,14 +47,18 @@ return {
 					},
 				},
 			},
-			pyright = {},
+			pyright = {
+				settings = {
+					venv_path = "./.venv",
+				},
+			},
 			html = {},
 			tailwindcss = {},
+			astro = {},
 		},
 	},
 	config = function(_, opts)
-		local servers = opts.servers
-		for server, server_opts in pairs(servers) do
+		for server, server_opts in pairs(opts.servers) do
 			require("lspconfig")[server].setup(server_opts)
 		end
 	end,

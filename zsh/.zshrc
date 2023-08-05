@@ -1,6 +1,8 @@
 source "$HOME/.config/zsh/env.zsh"
 source "$HOME/.config/zsh/aliases.zsh"
 
+bindkey -e
+
 eval "$(starship init zsh)"
 
 source "$XDG_CONFIG_HOME/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
