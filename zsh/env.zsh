@@ -16,3 +16,7 @@ export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
 export DOTNET_ROOT=$HOME/.local/share/dotnet
 export RYE_HOME="$HOME/.local/share/rye"
 export PATH="$PATH:/home/ikollipara/.local/share/coursier/bin:$HOME/Documents/Scripts:$PYENV_ROOT/bin:$HOME/.local/bin:$HOME/.local/share/npm/bin:$HOME/go/bin:$DENO_INSTALL/bin:$DOTNET_ROOT:$DOTNET_ROOT/tools:$HOME/.config/tmux/plugins/t-smart-tmux-session-manager/bin:$PATH"
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+export STACK_XDG=1
+export STACK_ROOT="$XDG_DATA_HOME"/stack                                                                          
