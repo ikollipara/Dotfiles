@@ -2,6 +2,8 @@ return {
 	"mhartington/formatter.nvim",
 	event = "LspAttach",
 	config = function()
+		local prettier = require("formatter.defaults").prettier
+		local utils = require("formatter.util")
 		require("formatter").setup({
 			filetype = {
 				lua = {
@@ -12,6 +14,28 @@ return {
 				},
 				python = {
 					require("formatter.filetypes.python").black,
+				},
+				javascript = {
+					require("formatter.filetypes.javascript").prettier,
+				},
+				astro = {
+					prettier("astro"),
+				},
+				htmldjango = {
+					function()
+						return {
+							exe = "djlint",
+							args = {
+								"--profile=django",
+								"--reformat",
+								'--blank-line-after-tag "load,extends,include"',
+								"--indent 2",
+								"--use-gitignore",
+								"-",
+							},
+							stdin = true,
+						}
+					end,
 				},
 				["*"] = {
 					require("formatter.filetypes.any").remove_trailing_whitespace,

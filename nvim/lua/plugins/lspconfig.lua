@@ -26,37 +26,51 @@ return {
 		})
 	end,
 	event = {
-		"BufReadPre *.{lua,py,html,css,js,ts,json,yaml,astro}",
-		"BufNewFile *.{lua,py,html,css,js,ts,json,yaml,astro}",
+		"BufReadPre *.{lua,py,html,css,js,ts,json,yaml,astro,go,hs,tsx,jsx,zig,zir,mjs,cjs,djhtml}",
+		"BufNewFile *.{lua,py,html,css,js,ts,json,yaml,astro,go,hs,tsx,jsx,zig,zir,mjs,cjs,djhtml}",
 	},
-	opts = {
-		servers = {
-			lua_ls = {
-				settings = {
-					Lua = {
-						diagnostics = {
-							globals = { "vim" },
-						},
-						workspace = {
-							-- Make the server aware of Neovim runtime files
-							library = vim.api.nvim_get_runtime_file("", true),
-						},
-						telemetry = {
-							enable = false,
+	opts = function()
+		local capabilities = vim.lsp.protocol.make_client_capabilities()
+		capabilities.textDocument.completion.completionItem.snippetSupport = true
+		return {
+			servers = {
+				lua_ls = {
+					settings = {
+						Lua = {
+							diagnostics = {
+								globals = { "vim" },
+							},
+							workspace = {
+								-- Make the server aware of Neovim runtime files
+								library = vim.api.nvim_get_runtime_file("", true),
+							},
+							telemetry = {
+								enable = false,
+							},
 						},
 					},
 				},
-			},
-			pyright = {
-				settings = {
-					venv_path = "./.venv",
+				pyright = {
+					settings = {
+						venv_path = "./.venv",
+					},
 				},
+				html = {
+					filetypes = { "html", "htmldjango" },
+					capabilities = capabilities,
+				},
+				cssls = {},
+				tailwindcss = {},
+				astro = {},
+				gopls = {},
+				hls = {},
+				tsserver = {},
+				yamlls = {},
+				zls = {},
+				emmet_language_server = {},
 			},
-			html = {},
-			tailwindcss = {},
-			astro = {},
-		},
-	},
+		}
+	end,
 	config = function(_, opts)
 		for server, server_opts in pairs(opts.servers) do
 			require("lspconfig")[server].setup(server_opts)

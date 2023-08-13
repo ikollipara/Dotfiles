@@ -9,9 +9,9 @@ return {
 		"rafamadriz/friendly-snippets",
 	},
 	config = function()
-		require("luasnip.loaders.from_vscode").lazy_load()
 		require("luasnip").filetype_extend("python", { "django" })
-		require("luasnip").filetype_extend("html", { "djangohtml" })
+		require("luasnip").filetype_extend("html", { "htmldjango" })
+		require("luasnip.loaders.from_vscode").lazy_load()
 	end,
 	keys = {
 		{

@@ -20,3 +20,4 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 export STACK_XDG=1
 export STACK_ROOT="$XDG_DATA_HOME"/stack                                                                          
+export ZK_NOTEBOOK_DIR="$HOME/Documents/Docs/"

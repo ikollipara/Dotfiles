@@ -18,3 +18,4 @@ export PATH="/home/ian/.turso:$PATH"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 [ -f "/home/ian/.local/share/ghcup/env" ] && source "/home/ian/.local/share/ghcup/env" # ghcup-env
+export PATH=$PATH:/home/ian/.spicetify

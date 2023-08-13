@@ -1,3 +1,5 @@
 emacs/straight
 emacs/var
 emacs/eln-cache
+zsh/plugins/zsh-syntax-highlighting
+tmux/plugins/*

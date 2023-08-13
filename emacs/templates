@@ -1,8 +1,0 @@
-fundamental-mode
-
-(ian "Ian Kollipara")
-(today (format-time-string "%Y.%m.%d"))
-
-web-mode
-
-(comp "export function " p "(" p ") {" n> n> "return <h1>Hello World</h1>" n "}")

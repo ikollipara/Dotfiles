@@ -6,6 +6,8 @@ return {
 		require("lint")
 		require("lint").linters_by_ft = {
 			lua = { "luacheck" },
+			python = { "ruff" },
+			htmldjango = { "djlint" },
 		}
 		vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 			callback = function()
