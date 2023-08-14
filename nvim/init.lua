@@ -5,4 +5,4 @@ local config = require("core.set")
 config.setup()
 
 lazy.setup("plugins")
-vim.cmd([[colorscheme nordic]])
+vim.cmd([[colorscheme catppuccin]])
