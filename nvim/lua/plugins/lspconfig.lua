@@ -1,3 +1,25 @@
+local LSP_FILE_EXTENSIONS = {
+	"lua",
+	"py",
+	"html",
+	"css",
+	"js",
+	"ts",
+	"json",
+	"yaml",
+	"astro",
+	"go",
+	"hs",
+	"tsx",
+	"jsx",
+	"zig",
+	"zir",
+	"mjs",
+	"cjs",
+	"djhtml",
+	"edge",
+	"tex",
+}
 return {
 	"neovim/nvim-lspconfig",
 	dependencies = { "folke/neoconf.nvim", { "williamboman/mason-lspconfig.nvim", config = true } },
@@ -9,8 +31,6 @@ return {
 				-- See `:help vim.lsp.*` for documentation on any of the below functions
 				local opts = { buffer = ev.buf }
 				vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-				vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-				vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
 				vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
 				vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
 				vim.keymap.set("n", "<leader>cwa", vim.lsp.buf.add_workspace_folder, opts)
@@ -19,15 +39,13 @@ return {
 					print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 				end, opts)
 				vim.keymap.set("n", "<leader>cD", vim.lsp.buf.type_definition, opts)
-				vim.keymap.set("n", "<leader>ccr", vim.lsp.buf.rename, opts)
-				vim.keymap.set({ "n", "v" }, "<leader>cca", vim.lsp.buf.code_action, opts)
 				vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
 			end,
 		})
 	end,
 	event = {
-		"BufReadPre *.{lua,py,html,css,js,ts,json,yaml,astro,go,hs,tsx,jsx,zig,zir,mjs,cjs,djhtml}",
-		"BufNewFile *.{lua,py,html,css,js,ts,json,yaml,astro,go,hs,tsx,jsx,zig,zir,mjs,cjs,djhtml}",
+		"BufReadPre *.{" .. table.concat(LSP_FILE_EXTENSIONS, ",") .. "}",
+		"BufNewFile *.{" .. table.concat(LSP_FILE_EXTENSIONS, ",") .. "}",
 	},
 	opts = function()
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -56,7 +74,7 @@ return {
 					},
 				},
 				html = {
-					filetypes = { "html", "htmldjango" },
+					filetypes = { "html", "htmldjango", "edge" },
 					capabilities = capabilities,
 				},
 				cssls = {},
@@ -67,7 +85,25 @@ return {
 				tsserver = {},
 				yamlls = {},
 				zls = {},
-				emmet_language_server = {},
+				texlab = {},
+				emmet_language_server = {
+					filetypes = {
+						"astro",
+						"css",
+						"eruby",
+						"html",
+						"htmldjango",
+						"javascriptreact",
+						"less",
+						"pug",
+						"sass",
+						"scss",
+						"svelte",
+						"typescriptreact",
+						"vue",
+						"edge",
+					},
+				},
 			},
 		}
 	end,

@@ -8,6 +8,7 @@ return {
 			lua = { "luacheck" },
 			python = { "ruff" },
 			htmldjango = { "djlint" },
+			edge = { "eslint" },
 		}
 		vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 			callback = function()
