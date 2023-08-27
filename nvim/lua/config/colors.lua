@@ -1,8 +1,7 @@
-return {
-	"catppuccin/nvim",
-	name = "catppuccin",
-	priority = 1000,
-	opts = {
+local M = {}
+
+function M.catppuccin()
+	return {
 		flavor = "mocha",
 		integrations = {
 			mason = true,
@@ -12,5 +11,11 @@ return {
 			markdown = true,
 			telescope = { enable = true },
 		},
-	},
-}
+	}
+end
+
+function M.tokyonight()
+	return { style = "night" }
+end
+
+return M

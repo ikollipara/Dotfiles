@@ -6,6 +6,9 @@ return {
 		local utils = require("formatter.util")
 		require("formatter").setup({
 			filetype = {
+				tex = {
+					require("formatter.filetypes.latex").latexindent,
+				},
 				lua = {
 					require("formatter.filetypes.lua").stylua,
 				},
